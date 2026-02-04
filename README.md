@@ -2,6 +2,83 @@
 
 PIL (Position Independent Language) is a lightweight, position-independent scripting language embedded in the Position-Independent Runtime (PIR). It provides a State-based API while maintaining full position-independence with no `.rdata` dependencies.
 
+<table>
+<tr>
+<th width="120">Platform</th>
+<th width="220">i386</th>
+<th width="220">x86_64</th>
+<th width="220">armv7a</th>
+<th width="220">aarch64</th>
+</tr>
+<tr>
+<td>Windows</td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-windows-i386.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-windows-i386.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-windows-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-windows-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center">-</td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-windows-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-windows-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-linux-i386.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-linux-i386.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-linux-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-linux-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-linux-armv7a.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-linux-armv7a.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-linux-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-linux-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td align="center">-</td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-uefi-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-uefi-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+<td align="center">-</td>
+<td align="center"><a href="https://github.com/mrzaxaryan/Position-Independent-Language/actions/workflows/build-uefi-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/Position-Independent-Language/build-uefi-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<th rowspan="2" width="120">Platform</th>
+<th colspan="2" width="220">i386</th>
+<th colspan="2" width="220">x86_64</th>
+<th colspan="2" width="220">armv7a</th>
+<th colspan="2" width="220">aarch64</th>
+</tr>
+<tr>
+<th>Exe</th><th>Bin</th>
+<th>Exe</th><th>Bin</th>
+<th>Exe</th><th>Bin</th>
+<th>Exe</th><th>Bin</th>
+</tr>
+<tr>
+<td>Windows</td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_i386_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_i386_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center">-</td><td align="center">-</td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.windows_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_i386_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_i386_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_armv7a_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_armv7a_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.linux_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+</tr>
+<tr>
+<td>UEFI</td>
+<td align="center">-</td><td align="center">-</td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+<td align="center">-</td><td align="center">-</td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
+<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2FPosition-Independent-Language%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
+</tr>
+</table>
+
 ## Table of Contents
 
 - [Overview](#overview)

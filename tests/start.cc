@@ -4,7 +4,7 @@
  * Main application logic called from entry_point().
  */
 
-#include "language/pil_tests.h"
+#include "pil_tests.h"
 
 /**
  * start - Main application function
