@@ -35,7 +35,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -80,7 +79,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -125,7 +123,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -170,7 +167,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -215,7 +211,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -260,7 +255,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -305,7 +299,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -350,7 +343,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
@@ -395,7 +387,6 @@
                 "${workspaceFolder}/runtime/include/runtime/network/tls",
                 "${workspaceFolder}/runtime/include/runtime/system",
                 "${workspaceFolder}/runtime/include/runtime/crypt",
-                "${workspaceFolder}/tests/language",
                 "${workspaceFolder}/runtime/tests/runtime"
             ],
             "browse": {
