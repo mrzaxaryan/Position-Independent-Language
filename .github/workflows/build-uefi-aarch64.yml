@@ -88,11 +88,10 @@ jobs:
 
             # Copy PIL script files for testing
             mmd -i "$DISK_IMG" ::/tests
-            mmd -i "$DISK_IMG" ::/tests/language
-            mmd -i "$DISK_IMG" ::/tests/language/scripts
+            mmd -i "$DISK_IMG" ::/tests/scripts
             for dir in language stdlib state error float fileio networkio; do
-              mmd -i "$DISK_IMG" ::/tests/language/scripts/$dir
-              mcopy -i "$DISK_IMG" tests/language/scripts/$dir/*.pil "::tests/language/scripts/$dir/"
+              mmd -i "$DISK_IMG" ::/tests/scripts/$dir
+              mcopy -i "$DISK_IMG" tests/scripts/$dir/*.pil "::tests/scripts/$dir/"
             done
 
             set +e
