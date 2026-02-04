@@ -231,6 +231,7 @@ static inline BOOL RunScriptTestInline(PCWCHAR path, TestConfig config,
  */
 inline BOOL RunScriptTest(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR description, TestConfig config)
 {
+    (VOID)description; // Suppress unused parameter warning if logging is disabled
     BOOL passed = RunScriptTestInline(scriptPath, config);
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
@@ -254,6 +255,7 @@ inline BOOL RunScriptTestFileIO(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR 
 {
     PIL::FilePool pool;
     BOOL passed = RunScriptTestInline(scriptPath, CFG_FILEIO, &pool, nullptr);
+    (VOID)description; // Suppress unused parameter warning if logging is disabled
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
     else
@@ -281,6 +283,7 @@ inline BOOL RunScriptTestNetworkIO(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCH
     PIL::NetworkContext* netCtx = new PIL::NetworkContext();
     BOOL passed = RunScriptTestInline(scriptPath, CFG_NETWORKIO, nullptr, netCtx);
     delete netCtx;
+    (VOID)description; // Suppress unused parameter warning if logging is disabled
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
     else
