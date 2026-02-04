@@ -36,11 +36,11 @@ public:
         BOOL allPassed = TRUE;
         LOG_INFO("Running StdLib Tests...");
 
-        RunScriptTest(allPassed, L"tests/language/scripts/stdlib/stdlib_functions.pil"_embed, L"Standard library functions"_embed, CFG_STDLIB);
-        RunScriptTest(allPassed, L"tests/language/scripts/stdlib/print_function.pil"_embed,   L"Print function"_embed,             CFG_STDLIB);
-        RunScriptTest(allPassed, L"tests/language/scripts/stdlib/type_function.pil"_embed,    L"Type function"_embed,              CFG_STDLIB);
-        RunScriptTest(allPassed, L"tests/language/scripts/stdlib/string_functions.pil"_embed, L"String functions"_embed,           CFG_STDLIB);
-        RunScriptTest(allPassed, L"tests/language/scripts/stdlib/math_functions.pil"_embed,   L"Math functions"_embed,             CFG_STDLIB);
+        RunScriptTest(allPassed, L"tests/scripts/stdlib/stdlib_functions.pil"_embed, L"Standard library functions"_embed, CFG_STDLIB);
+        RunScriptTest(allPassed, L"tests/scripts/stdlib/print_function.pil"_embed,   L"Print function"_embed,             CFG_STDLIB);
+        RunScriptTest(allPassed, L"tests/scripts/stdlib/type_function.pil"_embed,    L"Type function"_embed,              CFG_STDLIB);
+        RunScriptTest(allPassed, L"tests/scripts/stdlib/string_functions.pil"_embed, L"String functions"_embed,           CFG_STDLIB);
+        RunScriptTest(allPassed, L"tests/scripts/stdlib/math_functions.pil"_embed,   L"Math functions"_embed,             CFG_STDLIB);
 
         // Custom test with registered C++ functions
         RunTest(allPassed, EMBED_FUNC(TestCustomFunctionsWithStdLib), L"Custom functions with StdLib"_embed);
@@ -60,7 +60,7 @@ private:
         PIL::OpenStdLib(*L);
         L->Register("greet"_embed, EMBED_FUNC(StdLibTest_Func_Greet));
         L->Register("sum"_embed, EMBED_FUNC(StdLibTest_Func_Sum));
-        BOOL result = RunScriptAndCheckResult(L, L"tests/language/scripts/stdlib/custom_functions.pil"_embed);
+        BOOL result = RunScriptAndCheckResult(L, L"tests/scripts/stdlib/custom_functions.pil"_embed);
         delete L;
         return result;
     }
