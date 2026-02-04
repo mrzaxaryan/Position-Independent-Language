@@ -1,576 +1,689 @@
-# Position-Independent Runtime (PIR): A Modern C++ Approach to Zero-Dependency, Position-Independent Code Generation
-
-<table>
-<tr>
-<th width="120">Platform</th>
-<th width="220">i386</th>
-<th width="220">x86_64</th>
-<th width="220">armv7a</th>
-<th width="220">aarch64</th>
-</tr>
-<tr>
-<td>Windows</td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-windows-i386.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-windows-i386.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-windows-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-windows-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center">-</td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-windows-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-windows-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-</tr>
-<tr>
-<td>Linux</td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-linux-i386.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-linux-i386.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-linux-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-linux-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-linux-armv7a.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-linux-armv7a.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-linux-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-linux-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-</tr>
-<tr>
-<td>UEFI</td>
-<td align="center">-</td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-uefi-x86_64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-uefi-x86_64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-<td align="center">-</td>
-<td align="center"><a href="https://github.com/mrzaxaryan/cpp-pic/actions/workflows/build-uefi-aarch64.yml"><img src="https://img.shields.io/github/actions/workflow/status/mrzaxaryan/cpp-pic/build-uefi-aarch64.yml?branch=main&label=&style=for-the-badge&logo=" alt="Build"></a></td>
-</tr>
-</table>
-
-<table>
-<tr>
-<th rowspan="2" width="120">Platform</th>
-<th colspan="2" width="220">i386</th>
-<th colspan="2" width="220">x86_64</th>
-<th colspan="2" width="220">armv7a</th>
-<th colspan="2" width="220">aarch64</th>
-</tr>
-<tr>
-<th>Exe</th><th>Bin</th>
-<th>Exe</th><th>Bin</th>
-<th>Exe</th><th>Bin</th>
-<th>Exe</th><th>Bin</th>
-</tr>
-<tr>
-<td>Windows</td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_i386_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_i386_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center">-</td><td align="center">-</td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.windows_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-</tr>
-<tr>
-<td>Linux</td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_i386_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_i386_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_armv7a_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_armv7a_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.linux_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-</tr>
-<tr>
-<td>UEFI</td>
-<td align="center">-</td><td align="center">-</td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_x86_64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_x86_64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-<td align="center">-</td><td align="center">-</td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_aarch64_exe&label=&style=for-the-badge&color=blue" alt="Exe"></td>
-<td align="center"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmrzaxaryan%2Fcpp-pic%2Fbuild-sizes%2Fsizes.json&query=%24.uefi_aarch64_bin&label=&style=for-the-badge&color=blue" alt="Bin"></td>
-</tr>
-</table>
-
-## Introduction
-
-Shellcode, in security research and malware analysis, is a small, self-contained sequence of machine instructions that can be injected into memory and executed from an arbitrary location. It must operate without relying on external components such as DLLs, runtime initialization routines, or fixed stack layouts. Because of these strict constraints, shellcode is traditionally written in assembly language, which provides precise control over instructions, registers, and memory access.
-While assembly ensures fully dependency-free and position-independent execution, it quickly becomes impractical as complexity grows due to its low-level nature and limited expressiveness. High-level languages like C offer improved readability, maintainability, and development speed, but standard C and C++ compilation models introduce significant challenges for shellcode development. Modern compilers typically generate binaries that depend on runtime libraries, import tables, relocation information, and read-only data sections. These dependencies violate the core requirement of shellcode—execution independent of any fixed memory layout or external support—and these problems do not admit simple or universally effective solutions.
-As a result, code produced by conventional toolchains cannot be used as standalone shellcode without substantial modification or manual restructuring.
-
-## Motivation
-A long time ago, in a corner of the darknet, two users debated which programming language was better. One argued that assembly provides almost complete control over execution, while the other claimed that C, as a higher-level language, is a better choice for implementing complex systems, since writing something like a TLS client in assembly is impractical.
-That debate ended with the assembly coder being kicked out of that forum.
-
-With this work, we would like to add our two cents to that debate by arguing that it is possible to leverage modern C++23 without compromising the strict execution guarantees required for shellcode.
-
-## Common Problems and Solutions
-
-When writing shellcode in C/C++, developers face several fundamental challenges.This section examines each of these problems, outlines the traditional approaches used to address them, explains the limitations of those approaches, and demonstrates how Position-Independent Runtime provides a robust solution.
-
-### Problem 1: String literals in .rdata and other relocation Dependencies
-
-C-generated shellcode relies on loader-handled relocations that are not applied in a loaderless execution environment, preventing reliable execution from arbitrary memory.
-
-#### Traditional Approach
-
-**Option 1:** Use a custom shellcode loader.
-
-This aproach is not that easy to implement. Main difficulty is saving .reloc section in shellcode. 
-
-**Option 2:** Minimize usage of constructs that cause generation of data in `.rdata` or `.data` sections. In case of string it can be done by moving string literals onto the stack. Stack-based strings can be created by representing the string as a character array stored in a local variable. This solution also obfuscates strings:
-
-```cpp
-// "example.exe"
-char path[] = {'e', 'x', 'a', 'm', 'p', 'l', 'e', '.', 'e', 'x', 'e', '\0'};
-```
-
-and in the case of wide character strings, the notation is as follows:
-
-```cpp
-// L"example.exe"
-wchar_t path[] = { L'e', L'x', L'a', L'm', L'p', L'l', L'e', L'.', L'e', L'x', L'e', L'\0' };
-```
-
-**Alternative:** Manually assign each character to an array element on the stack, one by one:
-
-```cpp
-char path[12];
-path[0] = 'e';
-path[1] = 'x';
-path[2] = 'a';
-path[3] = 'm';
-path[4] = 'p';
-path[5] = 'l';
-path[6] = 'e';
-path[7] = '.';
-path[8] = 'e';
-path[9] = 'x';
-path[10] = 'e';
-path[11] = '\0';
-```
-
-**Option 3:** Perform the relocation manually at runtime. The shellcode determines its own position in memory and performs the loader's work manually. Constants and strings may reside in sections such as `.rdata`, which are then merged into the `.text` section using `/MERGE:.rdata=.text` with link.exe. Function ordering is controlled via a [function order file](cmake/function.order) across all platforms. During execution, relocation entries are processed explicitly to fix up absolute addresses:
-```cpp
-PCHAR GetInstructionAddress(VOID)
-{
-    return __builtin_return_address(0);
-}
-
-PCHAR ReversePatternSearch(PCHAR rip, const CHAR *pattern, UINT32 len)
-{
-    PCHAR p = rip;
-    while (1)
-    {
-        UINT32 i = 0;
-        for (; i < len; i++)
-        {
-            if (p[i] != pattern[i])
-                break;
-        }
-        if (i == len)
-            return p; // found match
-        p--;    // move backward
-    }
-}
-
-ENTRYPOINT INT32 entry_point(VOID)
-{
-#if defined(PLATFORM_WINDOWS_I386)
-
-    PCHAR currentAddress = GetInstructionAddress(); // Get the return address of the caller function
-    UINT16 functionPrologue = 0x8955; // i386 function prologue: push ebp; mov ebp, esp
-        // Scan backward for function prologue
-    PCHAR startAddress = ReversePatternSearch(currentAddress, (PCHAR)&functionPrologue, sizeof(functionPrologue));
-
-#endif
-```
-
-Then, perform relocation like this:
-
-```cpp
-CHAR *string = "Hello, World!";
-CHAR *relocatedString = string + (SSIZE)startAddress;
-
-WCHAR *wideString = L"Hello, World!";
-WCHAR *relocatedWideString = (WCHAR*)((CHAR*)wideString + (SSIZE)startAddress);
-```
-**Note**: In this example the solution is shown for string literals but same aproach works in other cases (f.e. function pointers).
-
-Similar to strings, constant arrays-such as lookup tables, binary blobs, are placed into `.rdata` by the compiler, making them inaccessible in a loaderless execution environment. And traditional approaches are the same to apply.
-
-#### Why Traditional Approaches Fail
-
-These approaches are not universal, as they rely on compiler-specific behavior and assumptions about stack layout. Modern compilers are sophisticated enough to recognize these patterns; when optimizations are enabled, the compiler may consolidate individual character assignments, place the string data in `.rdata`, and replace the code with a single `memcpy` call. This defeats the purpose of the technique and reintroduces the same `.rdata` dependency the approach was meant to avoid. Additionally, manually embedding constants and strings increases shellcode size, making it easier to detect and difficult to scale. These approaches also make the code less readable and harder to maintain.
-
-#### Position-Independent Runtime Solution: No Relocations Needed
-
-By eliminating all `.rdata` dependencies through compile-time embedding of strings, arrays, floating-point constants-and using pure relative addressing for function pointers, Position-Independent Runtime produces code that requires no relocations. The resulting binary is inherently position-independent without any runtime fixups.
-To achieve this, Position-Independent Runtime replaces conventional string literals with compile-time–decomposed representations. Leveraging C++23 features—such as user-defined literals, variadic templates, and fold expressions—string contents are expanded into individual character operations entirely at compile time:
-
-
-
-```cpp
-template <typename TChar, TChar... Chars>
-class EMBEDDED_STRING
-{
-    TChar data[sizeof...(Chars) + 1];
-    NOINLINE DISABLE_OPTIMIZATION EMBEDDED_STRING()
-    {
-        USIZE i = 0;
-        ((data[i++] = Chars), ...); // Fold expression
-        data[i] = 0;
-    }
-};
-```
-
-Usage:
-```cpp
-auto msg = "Hello, World!"_embed; // Embedded in code, not .rdata
-```
-
-Assembly Output:
-```asm
-movw $0x48, (%rdi)  ; 'H'
-movw $0x65, 2(%rdi) ; 'e'
-movw $0x6C, 4(%rdi) ; 'l'
-movw $0x6C, 6(%rdi) ; 'l'
-movw $0x6F, 8(%rdi) ; 'o'
-```
-As a result, string data exists only transiently in registers or on the stack and never appears in static data sections, fully eliminating loader dependencies and relocation requirements.
-In case of working with constant arrays, array elements are packed into machine-word-sized integers at compile time and unpacked at runtime:
-
-```cpp
-template <typename TChar, USIZE N>
-class EMBEDDED_ARRAY
-{
-    alignas(USIZE) USIZE words[WordCount]{};
-
-    consteval EMBEDDED_ARRAY(const TChar (&src)[N]) {
-        for (USIZE i = 0; i < N; ++i) {
-            // Pack each element byte-by-byte into words
-            for (USIZE b = 0; b < sizeof(TChar); ++b)
-                SetByte(i * sizeof(TChar) + b, (src[i] >> (b * 8)) & 0xFF);
-        }
-    }
-
-    TChar operator[](USIZE index) const {
-        // Unpack element from words at runtime
-    }
-};
-```
-
-Usage:
-```cpp
-constexpr UINT32 lookup[] = {0x12345678, 0xABCDEF00};
-auto embedded = MakeEmbedArray(lookup);
-UINT32 value = embedded[0]; // Unpacked at runtime
-```
-
-### Problem 2: Floating-Point Constants
-
-Using floating-point arithmetic in C-generated shellcode introduces additional issues, as floating-point constants are typically emitted into read-only data sections such as `.rdata`. In a loaderless execution environment, these sections are not available, causing generated code to reference invalid memory. Despite its similarity to the previous problem, the approaches and technical details differ markedly.
-
-#### Traditional Approach
-
-Represent floating-point values using their hexadecimal (IEEE-754) representation and cast to double at runtime:
-
-```cpp
-UINT64 f = 0x3426328629; // IEEE-754 representation
-double d = *((double*)&f);
-```
-
-Or convert from string/integer at runtime:
-
-```cpp
-// Two ways: with string or with integer
-toDouble("1.2353");
-toDouble(1, 232342);
-```
-
-#### Why Traditional Approaches Fail
-
-While this avoids embedding floating-point literals, it increases code size and complexity, which is not suitable for this type of work.
-
-#### Position-Independent Runtime Solution: Floating-Point Constant Embedding
-
-We solve this issue for double values; applying the same technique to float values is straightforward. Floating-point values are converted at compile time into IEEE-754 bit patterns and injected directly into registers as immediate operands:
-
-```cpp
-struct EMBEDDED_DOUBLE
-{
-    consteval explicit EMBEDDED_DOUBLE(double v) {
-        bits = __builtin_bit_cast(unsigned long long, v);
-    }
-
-    operator double() const {
-        return __builtin_bit_cast(double, bits);
-    }
-};
-```
-
-Usage:
-```cpp
-auto pi = 3.14159_embed; // IEEE-754 as immediate value
-```
-
-Assembly Output:
-```asm
-movabsq $0x400921f9f01b866e, %rax ; Pi as 64-bit immediate
-```
-
-This eliminates all floating-point constants from `.rdata` and avoids implicit compiler-generated helpers.
-
-### Problem 3: Function Pointers
-
-Using function pointers in C-generated shellcode introduces relocation dependencies, as function addresses are normally resolved by the loader. In a loaderless execution environment, these relocations are not applied, causing indirect function calls to reference invalid addresses.
-
-#### Traditional Approach
-
-Perform manual relocation at runtime, as discussed above.
-
-#### Why Traditional Approaches Fail
-
-The same issues remain: increased complexity, fragility, and sensitivity to compiler optimizations.
-
-#### Position-Independent Runtime Solution: Function Pointer Embedding
-
-We introduce the `EMBED_FUNC` macro, which uses inline assembly to compute pure relative offsets without relying on absolute addresses. The target architecture is selected at compile time using CMake-defined macros, ensuring correct code generation without relocation dependencies. The implementation is located [here](include/core/types/embedded/embedded_function_pointer.h).
-
-### Problem 4: 64-bit Arithmetic on 32-bit Systems
-
-Performing arithmetic with 64-bit integers on a 32-bit system, or with floating-point numbers, can cause issues because the compiler expects certain helper routines to be present.
-
-#### Traditional Approach
-
-Implement those helper routines manually.
-
-#### Why Traditional Approaches Fail
-
-Manual implementations are error-prone and may not cover all edge cases the compiler expects.
-
-#### Position-Independent Runtime Solution: 64-bit Arithmetic on 32-bit Systems
-
-We define custom `UINT64` and `INT64` classes that store values as two 32-bit words (high and low). All operations are decomposed into 32-bit arithmetic with manual carry handling:
-
-- **Multiplication**: Uses 16-bit partial products to avoid overflow, accumulating results with carry propagation across four 16-bit result segments
-- **Division**: Implements bit-by-bit long division, extracting one quotient bit per iteration from most-significant to least-significant
-- **Shifts**: Combines shifts across the word boundary with proper carry handling
-
-```cpp
-// 64-bit multiplication using only 32-bit operations
-// Split into 16-bit parts: (a3,a2,a1,a0) * (b3,b2,b1,b0)
-UINT32 p0 = a0 * b0;  // bits [0:31]
-UINT32 p1 = a1 * b0;  // bits [16:47]
-UINT32 p2 = a0 * b1;  // bits [16:47]
-// ... accumulate with carry propagation
-```
-
-This eliminates the need for compiler-expected helper routines and guarantees no `.rdata` generation.
-
-### Problem 5: CRT and Runtime Dependencies
-
-Standard C/C++ programs depend on the C runtime (CRT) for initialization, memory management, and various helper functions. Shellcode cannot assume the presence of these.
-
-#### Traditional Approach
-
-Manually implement required CRT functions and avoid using features that depend on runtime initialization.
-
-#### Why Traditional Approaches Fail
-
-This is tedious, incomplete, and doesn't address the fundamental issue of static API imports remaining visible to analysis tools.
-
-#### Position-Independent Runtime Solution: Runtime Independence
-
-Position-Independent Runtime achieves complete independence from the C runtime (CRT) and standard libraries by providing fully custom implementations for essential services such as memory management, string manipulation, formatted output, and runtime initialization. Instead of relying on CRT startup code, Position-Independent Runtime defines a custom entry point, enabling execution without loader-managed runtime setup.
-
-Interaction with Windows system functionality is performed through low-level native interfaces. The runtime traverses the Process Environment Block (PEB) to locate loaded modules and parses PE export tables to resolve function addresses using hash-based lookup. By avoiding import tables, string-based API resolution, and `GetProcAddress` calls, Position-Independent Runtime minimizes static analysis visibility and enables execution in constrained or adversarial environments.
-
-### Problem 6: Type Conversions
-
-Type conversions between integers and floating-point values can cause the compiler to emit hidden constants or helper routines.
-
-#### Traditional Approach
-
-Avoid type conversions or implement manual conversion functions.
-
-#### Position-Independent Runtime Solution: Pure Integer-Based Conversions
-
-All type conversions are implemented using explicit bitwise and integer operations, preventing the compiler from emitting hidden constants or helper routines:
-
-```cpp
-// Extracts integer value from IEEE-754 without FPU instructions
-INT64 d_to_i64(const DOUBLE& d)
-{
-    UINT64 bits = d.bits;
-    int exponent = ((bits >> 52) & 0x7FF) - 1023;
-    UINT64 mantissa = (bits & 0xFFFFFFFFFFFFF) | 0x10000000000000;
-    // ... bit shifting logic ...
-}
-```
-
-## Position-Independent Runtime Architecture Overview
-
-Within this work, we present Position-Independent Runtime, a C++23 runtime designed to achieve fully position-independent execution by eliminating dependencies on `.rdata`, the C runtime (CRT), and other loader-managed components. Position-Independent Runtime provides full position-independence for shellcode, code injection, and embedded systems, enabling execution from arbitrary memory locations.
-
-### Design Goals
-
-Position-Independent Runtime is designed around the following goals:
-
-1. **True position independence**
-   Execution must not depend on fixed load addresses or loader-handled relocations.
-
-2. **Elimination of `.rdata` dependencies**
-   No string literals or floating-point constants stored in read-only data sections.
-
-3. **No CRT or standard library reliance**
-   A completely standalone runtime with no dependency on the C runtime or standard libraries.
-
-4. **No static imports**
-   All Windows functionality is resolved dynamically at runtime.
-
-5. **Modern C++ expressiveness**
-   Support for C++23 language features without requiring runtime initialization.
-
-6. **Multi-architecture and multi-platform support**
-   Compatibility across x86, x64, and ARM architectures on both Windows and Linux. The platform abstraction layer cleanly separates OS-specific code, making it straightforward to add support for additional operating systems by implementing the appropriate low-level interfaces.
-
-7. **Full optimization support**
-   Supports all LLVM optimization levels, allowing builds from unoptimized (`-O0`) to maximum optimization (`-O3`) or size optimization (`-Oz`).
-
-### Three-Layer Architecture
-
-Position-Independent Runtime is built on a clean three-layer abstraction that separates concerns and enables multi-platform support:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  RUNTIME (Runtime Abstraction Layer)                        │
-│  High-level features: Cryptography, Networking, TLS 1.3     │
-├─────────────────────────────────────────────────────────────┤
-│  PLATFORM (Platform Abstraction Layer)                      │
-│  OS-specific: Windows PEB/NTAPI, Linux syscalls             │
-├─────────────────────────────────────────────────────────────┤
-│  CORE (Core Abstraction Layer)                              │
-│  Platform-independent: Types, Memory, Strings, Algorithms   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**CORE (Core Abstraction Layer)** provides platform-independent primitives:
-- Embedded types (`EMBEDDED_STRING`, `EMBEDDED_DOUBLE`, `EMBEDDED_ARRAY`)
-- Numeric types (`UINT64`, `INT64`, `DOUBLE`) with guaranteed no `.rdata` generation
-- Memory operations, string utilities, and formatting
-- Algorithms (DJB2 hashing, Base64, random number generation)
-
-**PLATFORM (Platform Abstraction Layer)** handles OS and hardware specifics:
-- Windows: PEB walking, PE parsing, NTAPI-based operations
-- Linux: Direct syscall interface without libc
-- Console I/O, file system, networking, memory allocation
-
-**RUNTIME (Runtime Abstraction Layer)** provides high-level application features:
-- Cryptography: SHA-256/384/512, HMAC, ChaCha20-Poly1305, ECC
-- Networking: DNS resolution, HTTP client, WebSocket, TLS 1.3
-
-### Entry Point Placement
-
-We would also like to highlight a challenge faced during development. Ensuring that the shellcode entry point was placed at the very beginning of the `.text` section proved to be challenging, yet crucial for this architecture. After extensive research, we discovered a solution:
-
-For MSVC:
-```
-# Custom entry point (no CRT)
-/Entry:entry_point
-
-# Function ordering for MSVC
-/ORDER:@cmake/function.order
-```
-
-For Clang, we used custom linker scripts with section ordering directives to achieve the same result.
-
-## Build System
-
-### Critical Compiler Flags
-
-Achieving true position-independence requires specific compiler flags that prevent the compiler from generating `.rdata` dependencies:
-
-```bash
--fno-jump-tables      # CRITICAL: Prevents switch statement jump tables in .rdata
--fno-exceptions       # No exception handling tables (.pdata/.xdata)
--fno-rtti             # No runtime type information (no typeinfo in .rdata)
--nostdlib             # No standard C/C++ libraries (no CRT linkage)
--fno-builtin          # Disable compiler built-in functions
--ffunction-sections   # Each function in own section (enables dead code elimination)
--fdata-sections       # Each data item in own section (enables garbage collection)
--fshort-wchar         # 2-byte wchar_t (Windows ABI compatibility)
-```
-
-The `-fno-jump-tables` flag is particularly critical—without it, `switch` statements generate jump tables stored in `.rdata`, breaking position-independence.
-
-### Post-Build Verification
-
-The build system automatically verifies that the final binary contains no separate data sections:
-
-```cmake
-# Verify no .rdata/.rodata/.data/.bss sections exist
-string(REGEX MATCH "\\.rdata" RDATA_FOUND "${MAP_CONTENT}")
-string(REGEX MATCH "\\.rodata" RODATA_FOUND "${MAP_CONTENT}")
-string(REGEX MATCH "\\.data" DATA_FOUND "${MAP_CONTENT}")
-string(REGEX MATCH "\\.bss" BSS_FOUND "${MAP_CONTENT}")
-
-if(RDATA_FOUND OR RODATA_FOUND OR DATA_FOUND OR BSS_FOUND)
-    message(FATAL_ERROR "Data section detected - breaks position-independence!")
-endif()
-```
-
-This verification runs after every build, ensuring that code changes don't accidentally introduce `.rdata` dependencies.
-
-## Windows Implementation
-
-Position-Independent Runtime integrates deeply with Windows internals to provide a fully functional, standalone execution environment while maintaining position independence.
-
-### Low-Level Native Interfaces
-
-By completely eliminating static import tables and bypassing loader-dependent API resolution mechanisms such as `GetProcAddress`, Position-Independent Runtime removes all dependencies on the operating system's runtime initialization and dynamic linking processes. This ensures that all required function addresses are resolved internally at runtime, using hash-based lookups of exported symbols in loaded modules. As a result, the generated binaries are fully self-contained, do not rely on predefined memory locations, and can execute correctly from any arbitrary memory address without requiring relocation tables or loader-managed fixups.
-
-### File System Support
-A complete abstraction over `NTAPI` enables file and directory operations:
-* File creation, reading, writing, deletion
-* Directory creation, enumeration, deletion
-* Path and attribute management
-
-All file system operations are executed without relying on CRT or standard libraries.
-
-### Console Output
-Printf-style output is implemented natively within the runtime. This allows robust console output without runtime support.
-
-### Cryptography and Networking
-Position-Independent Runtime provides a complete cryptographic and networking stack:
-* Cryptography: SHA-256/512, HMAC, ChaCha20, ECC, Base64 encoding/decoding
-* Networking: DNS resolution, HTTP client, WebSocket connections, TLS 1.3 with certificate verification
-
-All functionality is implemented using low-level native interfaces to avoid external dependencies.
-
-## Practical Use Cases
-
-Position-Indepenedent Runtime is designed for execution environments where traditional runtime assumptions do not apply. Its architecture makes it particularly suitable for the following domains:
-- Shellcode and loaderless code execution
-- Security research and malware analysis
-- Embedded and low-level system programming
-- Cross-architecture C++ development
-- Environments without standard C runtime support
-
-## To Do
-This project is still a work in progress. Below is a list of remaining tasks and planned improvements. Any help or contributions are greatly appreciated.
-- PIL - Position Independent Language
-- Support for additional platforms (macOS, FreeBSD)
-- Windows direct syscall implementations (bypassing ntdll)
-- Compile-time polymorphism
-
-## Conclusion
-
-Position-Independent Runtime is not merely a library—it is a proof of concept that challenges long-held assumptions about C++, binary formats, and position-independent execution across multiple platforms. This project compiles into a PE file on Windows or an ELF file on Linux, supporting i386, x86_64, armv7a, and aarch64 architectures. The resulting binary can run both as a standalone executable and as shellcode after extracting the `.text` section. By eliminating `.rdata`, CRT dependencies, relocations, and static API references, Position-Independent Runtime enables a new class of C++ programs capable of running in environments where traditional C++ has never been viable.
-
-The platform abstraction layer demonstrates that the same high-level C++23 codebase can target fundamentally different operating systems—Windows with its PEB walking and NTAPI interfaces, and Linux with its direct syscall approach—while maintaining identical position-independence guarantees. As demonstrated throughout this work, modern C++23 compile-time features and carefully selected compiler intrinsics play a key role in achieving these guarantees, allowing expressive high-level code while preserving strict low-level control.
-
-This project is intended for researchers, systems programmers, and security engineers who are willing to work beneath high-level abstractions and take full control of the machine. Any unauthorized or malicious use of this software is strictly prohibited and falls outside the scope of the project's design goals.
-
-## Appendix A: PIL - Position Independent Language
-
-The Position-Independent Runtime includes **PIL (Position Independent Language)**, a lightweight, position-independent scripting language designed for embedded and constrained environments. PIL provides a State API allowing programs to manage variables, call stacks, and other runtime state, all while maintaining full position-independence with no `.rdata` dependencies.
+# PIL (Position Independent Language) Specification
+
+PIL (Position Independent Language) is a lightweight, position-independent scripting language embedded in the Position-Independent Runtime (PIR). It provides a State-based API while maintaining full position-independence with no `.rdata` dependencies.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Lexical Structure](#lexical-structure)
+- [Data Types](#data-types)
+- [Variables](#variables)
+- [Operators](#operators)
+- [Control Flow](#control-flow)
+- [Functions](#functions)
+- [Arrays](#arrays)
+- [Standard Library](#standard-library)
+- [File I/O](#file-io)
+- [Network I/O](#network-io)
+- [C++ Integration](#c-integration)
+- [Error Handling](#error-handling)
+- [Constraints](#constraints)
+
+---
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **Name** | PIL |
+| **Type** | Dynamically typed, interpreted |
+| **Target** | Embedded in cpp-pic runtime |
+| **Dependencies** | None (no .rdata, no CRT) |
 
 ### Design Philosophy
 
-- **No built-in functions**: All functions must be registered from C++, giving complete control over the runtime environment
-- **Position-independent**: Uses `_embed` strings and other techniques to eliminate relocations
-- **Minimal footprint**: Designed for shellcode and embedded contexts where binary size is critical
-- **State-based API**: Offers a familiar, state-oriented interface for easy integration and adoption
+- **No built-in functions**: All functions must be registered from C++
+- **Position-independent**: Uses `_embed` strings throughout
+- **Minimal footprint**: Designed for shellcode and embedded contexts
+- **State-based API**: Familiar State-based interface
 
-### C++ Integration
+---
 
-**Basic Usage:**
+## Lexical Structure
+
+### Comments
+
+```javascript
+// Single-line comment
+
+/* Multi-line
+   comment */
+```
+
+### Keywords
+
+```
+var     if      else    while   for     fn
+return  break   continue true    false   nil
+in
+```
+
+### Identifiers
+
+Identifiers start with a letter or underscore, followed by letters, digits, or underscores:
+
+```
+myVar
+_private
+count123
+```
+
+### Literals
+
+**Numbers (integers and floats):**
+```javascript
+42
+-17
+0
+3.14
+0.5
+-2.718
+```
+
+**Strings:**
+```javascript
+"hello world"
+"escape sequences: \n \t \\ \""
+""  // empty string
+```
+
+**Booleans:**
+```javascript
+true
+false
+```
+
+**Nil:**
+```javascript
+nil
+```
+
+**Arrays:**
+```javascript
+[1, 2, 3]
+["a", "b", "c"]
+[1, "mixed", true, nil]
+[]  // empty array
+```
+
+---
+
+## Data Types
+
+PIL has six value types:
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `nil` | Absence of value | `nil` |
+| `bool` | Boolean | `true`, `false` |
+| `number` | 64-bit floating point (DOUBLE) | `42`, `3.14`, `-2.5` |
+| `string` | Character sequence | `"hello"` |
+| `array` | Indexed collection | `[1, 2, 3]` |
+| `function` | Callable | `fn(x) { return x; }` |
+
+### Type Coercion
+
+- **Truthiness**: `nil` and `false` are falsy; everything else is truthy
+- **String concatenation**: `+` with strings performs concatenation
+- **Numeric operations**: Non-numbers in arithmetic cause runtime errors
+
+---
+
+## Variables
+
+### Declaration
+
+Variables are declared with `var`:
+
+```javascript
+var x = 10;
+var name = "hello";
+var flag = true;
+var empty;  // initialized to nil
+```
+
+### Assignment
+
+```javascript
+x = 20;
+name = "world";
+```
+
+### Compound Assignment
+
+```javascript
+x += 5;   // x = x + 5
+x -= 3;   // x = x - 3
+x *= 2;   // x = x * 2
+x /= 4;   // x = x / 4
+```
+
+### Scope
+
+Variables follow lexical scoping:
+
+```javascript
+var x = "outer";
+{
+    var x = "inner";  // shadows outer x
+    print(x);         // "inner"
+}
+print(x);             // "outer"
+```
+
+Maximum scope depth: 32 levels.
+
+---
+
+## Operators
+
+### Precedence (highest to lowest)
+
+| Precedence | Operators | Associativity |
+|------------|-----------|---------------|
+| 1 | `()` `[]` | Left-to-right |
+| 2 | `!` `-` (unary) | Right-to-left |
+| 3 | `*` `/` `%` | Left-to-right |
+| 4 | `+` `-` | Left-to-right |
+| 5 | `<` `>` `<=` `>=` | Left-to-right |
+| 6 | `==` `!=` | Left-to-right |
+| 7 | `&&` | Left-to-right |
+| 8 | `\|\|` | Left-to-right |
+| 9 | `=` `+=` `-=` `*=` `/=` | Right-to-left |
+
+### Arithmetic Operators
+
+```javascript
+var a = 10 + 5;   // 15
+var b = 10 - 5;   // 5
+var c = 10 * 5;   // 50
+var d = 10 / 4;   // 2.5 (float division)
+var e = 10 % 3;   // 1
+var f = -a;       // -15
+var g = 3.14 * 2; // 6.28
+```
+
+### Comparison Operators
+
+```javascript
+a == b    // equal
+a != b    // not equal
+a < b     // less than
+a > b     // greater than
+a <= b    // less than or equal
+a >= b    // greater than or equal
+```
+
+### Logical Operators
+
+```javascript
+a && b    // logical AND (short-circuit)
+a || b    // logical OR (short-circuit)
+!a        // logical NOT
+```
+
+### String Concatenation
+
+```javascript
+var greeting = "Hello, " + "World!";  // "Hello, World!"
+var msg = "Value: " + str(42);        // "Value: 42"
+```
+
+---
+
+## Control Flow
+
+### If Statement
+
+```javascript
+if (condition) {
+    // then branch
+}
+
+if (condition) {
+    // then branch
+} else {
+    // else branch
+}
+
+if (condition1) {
+    // branch 1
+} else if (condition2) {
+    // branch 2
+} else {
+    // else branch
+}
+```
+
+### While Loop
+
+```javascript
+var i = 0;
+while (i < 10) {
+    print(i);
+    i = i + 1;
+}
+```
+
+### For Loop (Traditional)
+
+```javascript
+for (var i = 0; i < 10; i = i + 1) {
+    print(i);
+}
+```
+
+### For-Each Loop
+
+Iterate over arrays:
+```javascript
+var arr = [1, 2, 3];
+for (var item in arr) {
+    print(item);
+}
+```
+
+Iterate over strings:
+```javascript
+for (var c in "hello") {
+    print(c);
+}
+```
+
+With index:
+```javascript
+for (var i, item in arr) {
+    print(i, ":", item);
+}
+```
+
+### Break and Continue
+
+```javascript
+for (var i = 0; i < 10; i = i + 1) {
+    if (i == 5) {
+        break;      // exit loop
+    }
+    if (i % 2 == 0) {
+        continue;   // skip to next iteration
+    }
+    print(i);
+}
+```
+
+---
+
+## Functions
+
+### Declaration
+
+```javascript
+fn add(a, b) {
+    return a + b;
+}
+
+fn greet(name) {
+    print("Hello, " + name + "!");
+}
+
+fn factorial(n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+```
+
+### Calling Functions
+
+```javascript
+var sum = add(3, 4);      // 7
+greet("World");           // prints "Hello, World!"
+var f = factorial(5);     // 120
+```
+
+### Return Statement
+
+```javascript
+fn getValue() {
+    return 42;
+}
+
+fn earlyReturn(x) {
+    if (x < 0) {
+        return nil;  // early return
+    }
+    return x * 2;
+}
+```
+
+Functions without a `return` statement return `nil`.
+
+### First-Class Functions
+
+Functions are first-class values:
+
+```javascript
+fn apply(f, x) {
+    return f(x);
+}
+
+fn double(n) {
+    return n * 2;
+}
+
+var result = apply(double, 21);  // 42
+```
+
+---
+
+## Arrays
+
+### Creation
+
+```javascript
+var empty = [];
+var numbers = [1, 2, 3, 4, 5];
+var mixed = [1, "two", true, nil];
+```
+
+Maximum 16 elements per array. Maximum 64 arrays in pool.
+
+### Access
+
+```javascript
+var arr = [10, 20, 30];
+print(arr[0]);    // 10
+print(arr[2]);    // 30
+```
+
+String indexing:
+```javascript
+var s = "hello";
+print(s[0]);      // "h"
+print(s[4]);      // "o"
+```
+
+### Assignment
+
+```javascript
+var arr = [1, 2, 3];
+arr[1] = 99;
+print(arr);       // [1, 99, 3]
+```
+
+### Array Functions
+
+```javascript
+var arr = [1, 2, 3];
+
+print(len(arr));      // 3
+
+push(arr, 4);         // arr is now [1, 2, 3, 4]
+
+var last = pop(arr);  // last = 4, arr is [1, 2, 3]
+```
+
+---
+
+## Standard Library
+
+Register the standard library:
+```cpp
+PIL::State L;
+PIL::OpenStdLib(L);
+```
+
+### Available Functions
+
+| Function | Description | Example | Result |
+|----------|-------------|---------|--------|
+| `print(...)` | Print values to console | `print("x =", 42);` | Output: `x = 42` |
+| `len(v)` | Get length of string/array | `len("hello")` | `5` |
+| `str(v)` | Convert to string | `str(3.14)` | `"3.14"` |
+| `num(v)` | Convert to number | `num("3.14")` | `3.14` |
+| `type(v)` | Get type name | `type(42)` | `"number"` |
+| `abs(n)` | Absolute value | `abs(-5.5)` | `5.5` |
+| `min(a, b)` | Minimum of two values | `min(3, 5)` | `3` |
+| `max(a, b)` | Maximum of two values | `max(3, 5)` | `5` |
+| `floor(n)` | Round down to nearest integer | `floor(3.7)` | `3` |
+| `ceil(n)` | Round up to nearest integer | `ceil(3.2)` | `4` |
+| `int(n)` | Truncate to integer (toward zero) | `int(-3.7)` | `-3` |
+| `push(arr, v)` | Add element to array | `push(arr, 4)` | - |
+| `pop(arr)` | Remove last element | `pop(arr)` | Last element |
+
+---
+
+## File I/O
+
+File operations are available through the standard library.
+
+### Functions
+
+| Function | Description |
+|----------|-------------|
+| `fopen(path, mode)` | Open file. Modes: `"r"`, `"w"`, `"a"`, `"rb"`, `"wb"`, `"ab"` |
+| `fclose(handle)` | Close file |
+| `fread(handle [, size])` | Read from file (max 255 bytes per call) |
+| `freadline(handle)` | Read a line from file |
+| `fwrite(handle, data)` | Write to file |
+| `fexists(path)` | Check if file exists |
+| `fdelete(path)` | Delete file |
+| `fsize(handle)` | Get file size |
+| `fseek(handle, offset, origin)` | Set position (0=start, 1=current, 2=end) |
+| `ftell(handle)` | Get current position |
+| `mkdir(path)` | Create directory |
+| `rmdir(path)` | Remove directory |
+
+Maximum 16 open files simultaneously.
+
+### Example
+
+```javascript
+// Write to file
+var f = fopen("test.txt", "w");
+if (f != nil) {
+    fwrite(f, "Hello, World!\n");
+    fwrite(f, "Line 2\n");
+    fclose(f);
+}
+
+// Read from file
+f = fopen("test.txt", "r");
+if (f != nil) {
+    var line = freadline(f);
+    while (line != nil) {
+        print(line);
+        line = freadline(f);
+    }
+    fclose(f);
+}
+
+// Check file exists
+if (fexists("test.txt")) {
+    print("File exists!");
+}
+```
+
+---
+
+## Network I/O
+
+Network operations are available through the network I/O library.
+
+### Setup
+
+```cpp
+PIL::NetworkContext netCtx;
+PIL::State L;
+PIL::OpenStdLib(L);
+PIL::OpenNetworkIO(L, &netCtx);
+```
+
+### Socket Functions
+
+| Function | Description |
+|----------|-------------|
+| `sock_connect(host, port)` | Connect to host:port, returns handle or -1 |
+| `sock_close(handle)` | Close socket, returns true/false |
+| `sock_send(handle, data)` | Send data, returns bytes sent or -1 |
+| `sock_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
+
+Maximum 8 sockets simultaneously.
+
+#### Example
+
+```javascript
+var sock = sock_connect("httpbin.org", 80);
+if (sock >= 0) {
+    sock_send(sock, "GET / HTTP/1.0\r\nHost: httpbin.org\r\n\r\n");
+    var response = sock_recv(sock, 255);
+    print(response);
+    sock_close(sock);
+}
+```
+
+### DNS Functions
+
+| Function | Description |
+|----------|-------------|
+| `dns_resolve(hostname)` | Resolve hostname to IP string (IPv6 preferred) |
+| `dns_resolve4(hostname)` | Resolve hostname to IPv4 string |
+| `dns_resolve6(hostname)` | Resolve hostname to IPv6 string |
+
+#### Example
+
+```javascript
+var ip = dns_resolve("cloudflare.com");
+print("IP:", ip);
+
+var ipv4 = dns_resolve4("example.com");
+var ipv6 = dns_resolve6("example.com");
+```
+
+### HTTP Functions
+
+| Function | Description |
+|----------|-------------|
+| `http_open(url)` | Create HTTP client for URL, returns handle or -1 |
+| `http_get(handle)` | Send GET request, returns true/false |
+| `http_post(handle, data)` | Send POST request, returns true/false |
+| `http_read(handle [, size])` | Read response (max 255 bytes), returns string |
+| `http_close(handle)` | Close HTTP client, returns true/false |
+
+Maximum 4 HTTP clients simultaneously.
+
+#### Example
+
+```javascript
+var http = http_open("http://httpbin.org/ip");
+if (http >= 0) {
+    if (http_get(http)) {
+        var response = "";
+        var chunk = http_read(http, 255);
+        while (len(chunk) > 0) {
+            response = response + chunk;
+            chunk = http_read(http, 255);
+        }
+        print(response);
+    }
+    http_close(http);
+}
+```
+
+### WebSocket Functions
+
+| Function | Description |
+|----------|-------------|
+| `ws_connect(url)` | Connect to WebSocket server (ws:// or wss://), returns handle or -1 |
+| `ws_close(handle)` | Close WebSocket connection, returns true/false |
+| `ws_send(handle, data [, opcode])` | Send data with optional opcode, returns bytes sent or -1 |
+| `ws_send_text(handle, data)` | Send text data (opcode=1), returns bytes sent or -1 |
+| `ws_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
+| `ws_ping(handle)` | Send ping frame, returns true/false |
+| `ws_pong(handle)` | Send pong frame, returns true/false |
+
+Maximum 4 WebSocket connections simultaneously.
+
+**Opcodes:**
+| Opcode | Description |
+|--------|-------------|
+| 0 | Continuation |
+| 1 | Text |
+| 2 | Binary (default) |
+| 8 | Close |
+| 9 | Ping |
+| 10 | Pong |
+
+#### Example
+
+```javascript
+// Connect to WebSocket echo server
+var ws = ws_connect("wss://echo.websocket.org");
+if (ws >= 0) {
+    // Send text message
+    ws_send_text(ws, "Hello WebSocket!");
+
+    // Receive echo response
+    var data = ws_recv(ws);
+    print("Received:", data);
+
+    // Send binary data with explicit opcode
+    ws_send(ws, "binary data", 2);
+
+    // Send ping
+    ws_ping(ws);
+
+    // Close connection
+    ws_close(ws);
+}
+```
+
+#### Real-time Communication Example
+
+```javascript
+var ws = ws_connect("wss://myserver.com/socket");
+if (ws >= 0) {
+    // Send JSON message
+    ws_send_text(ws, "{\"type\":\"subscribe\",\"channel\":\"updates\"}");
+
+    // Read messages in a loop
+    var running = true;
+    while (running) {
+        var msg = ws_recv(ws);
+        if (len(msg) > 0) {
+            print("Message:", msg);
+            // Process message...
+        }
+    }
+
+    ws_close(ws);
+}
+```
+
+---
+
+## C++ Integration
+
+### Basic Usage
+
+```cpp
+#include "pil/pil.h"
+
+PIL::State* L = new PIL::State();
+
+// Register standard library
+PIL::OpenStdLib(*L);
+
+// Execute script
+L->DoString(R"(
+    print("Hello from PIL!");
+)"_embed);
+
+delete L;
+```
+
+### Custom Functions
 
 ```cpp
 PIL::Value MyFunction(PIL::FunctionContext& ctx)
@@ -585,4 +698,259 @@ PIL::Value MyFunction(PIL::FunctionContext& ctx)
 
 // Register custom function
 L->Register("double"_embed, MyFunction);
+```
+
+### Setting Global Variables
+
+```cpp
+L->SetGlobalNumber("count"_embed, 5, 42);
+L->SetGlobalFloat("PI"_embed, 2, DOUBLE::FromParts(3, 141592));  // 3.141592
+L->SetGlobalString("version"_embed, 7, "1.0.0"_embed, 5);
+L->SetGlobalBool("debug"_embed, 5, TRUE);
+```
+
+### FunctionContext API
+
+| Method | Description |
+|--------|-------------|
+| `ArgCount()` | Get number of arguments |
+| `CheckArgs(n)` | Check if exactly n arguments |
+| `IsNil(i)` | Check if argument i is nil |
+| `IsBool(i)` | Check if argument i is bool |
+| `IsNumber(i)` | Check if argument i is number |
+| `IsString(i)` | Check if argument i is string |
+| `IsArray(i)` | Check if argument i is array |
+| `ToBool(i)` | Get argument i as bool |
+| `ToNumber(i)` | Get argument i as number |
+| `ToString(i)` | Get argument i as string |
+
+### Value Creation
+
+```cpp
+PIL::Value::Nil()
+PIL::Value::Bool(true)
+PIL::Value::Number(42)
+PIL::Value::String("hello", 5)
+```
+
+---
+
+## Error Handling
+
+### In Scripts
+
+Errors halt execution and set an error message:
+
+```cpp
+if (!L->DoString(source))
+{
+    Console::Write<CHAR>("Error: "_embed);
+    Console::Write<CHAR>(L->GetError());
+}
+```
+
+### Common Errors
+
+| Error | Cause |
+|-------|-------|
+| `Undefined variable 'x'` | Using undeclared variable |
+| `Division by zero` | Dividing by zero |
+| `Type error` | Invalid operation for types |
+| `Index out of bounds` | Array/string index invalid |
+| `Too many arguments` | Exceeding function parameter limit |
+| `break outside loop` | Using break outside a loop |
+| `continue outside loop` | Using continue outside a loop |
+
+---
+
+## Constraints
+
+Due to cpp-pic compatibility requirements:
+
+1. **No .rdata**: All strings use `_embed` suffix
+2. **No exceptions**: Uses error codes/flags
+3. **No dynamic allocation**: Fixed-size buffers and pools
+4. **No STL**: Custom containers only
+5. **Position-independent**: No relocation dependencies
+
+### Limits
+
+| Resource | Limit |
+|----------|-------|
+| Scope depth | 32 levels |
+| Array elements | 16 per array |
+| Array pool | 64 arrays |
+| Open files | 16 handles |
+| Open sockets | 8 handles |
+| HTTP clients | 4 handles |
+| WebSocket clients | 4 handles |
+| String buffer | 256 characters |
+
+---
+
+## Examples
+
+### FizzBuzz
+
+```javascript
+fn fizzbuzz(n) {
+    for (var i = 1; i <= n; i = i + 1) {
+        if (i % 15 == 0) {
+            print("FizzBuzz");
+        } else if (i % 3 == 0) {
+            print("Fizz");
+        } else if (i % 5 == 0) {
+            print("Buzz");
+        } else {
+            print(i);
+        }
+    }
+}
+fizzbuzz(15);
+```
+
+### Fibonacci
+
+```javascript
+fn fib(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fib(n - 1) + fib(n - 2);
+}
+
+for (var i = 0; i < 10; i = i + 1) {
+    print(fib(i));
+}
+```
+
+### Array Processing
+
+```javascript
+var numbers = [1, 2, 3, 4, 5];
+var sum = 0;
+
+for (var n in numbers) {
+    sum = sum + n;
+}
+
+print("Sum:", sum);           // Sum: 15
+print("Average:", sum / len(numbers));  // Average: 3.0
+```
+
+### Floating-Point Math
+
+```javascript
+var pi = 3.14159;
+var radius = 2.5;
+var area = pi * radius * radius;
+print("Area:", area);         // Area: 19.634...
+
+var x = 7.8;
+print("floor:", floor(x));    // floor: 7
+print("ceil:", ceil(x));      // ceil: 8
+print("int:", int(-3.9));     // int: -3 (truncates toward zero)
+```
+
+### File Processing
+
+```javascript
+// Count lines in a file
+fn countLines(path) {
+    var f = fopen(path, "r");
+    if (f == nil) {
+        return -1;
+    }
+
+    var count = 0;
+    var line = freadline(f);
+    while (line != nil) {
+        count = count + 1;
+        line = freadline(f);
+    }
+
+    fclose(f);
+    return count;
+}
+
+var lines = countLines("myfile.txt");
+print("Lines:", lines);
+```
+
+### HTTP Request
+
+```javascript
+// Fetch data from an API
+fn httpGet(url) {
+    var http = http_open(url);
+    if (http < 0) {
+        return nil;
+    }
+
+    if (!http_get(http)) {
+        http_close(http);
+        return nil;
+    }
+
+    var response = "";
+    var chunk = http_read(http, 255);
+    while (len(chunk) > 0) {
+        response = response + chunk;
+        chunk = http_read(http, 255);
+    }
+
+    http_close(http);
+    return response;
+}
+
+var data = httpGet("http://httpbin.org/ip");
+if (data != nil) {
+    print("Response:", data);
+}
+```
+
+### WebSocket Chat
+
+```javascript
+// Simple WebSocket echo client
+var ws = ws_connect("wss://echo.websocket.org");
+if (ws >= 0) {
+    print("Connected to echo server");
+
+    // Send messages
+    var messages = ["Hello", "World", "Test"];
+    for (var msg in messages) {
+        ws_send_text(ws, msg);
+        print("Sent:", msg);
+
+        var reply = ws_recv(ws);
+        print("Echo:", reply);
+    }
+
+    ws_close(ws);
+    print("Disconnected");
+} else {
+    print("Connection failed");
+}
+```
+
+---
+
+## Architecture
+
+PIL is implemented as a standalone module:
+
+```
+include/pil/
+├── token.h          # Token types and struct
+├── lexer.h          # Lexer class
+├── ast.h            # AST node definitions + allocator
+├── parser.h         # Recursive descent parser
+├── value.h          # Value type system + Environment
+├── interpreter.h    # Tree-walking interpreter
+├── stdlib.h         # Standard library functions
+├── fileio.h         # File I/O functions
+├── networkio.h      # Network I/O functions (socket, DNS, HTTP, WebSocket)
+├── state.h          # State-based API wrapper
+└── pil.h            # Main entry point (include this)
 ```
