@@ -1,0 +1,20 @@
+{
+  "windows_x86_64_exe": "147.0 KB",
+  "windows_x86_64_bin": "146.2 KB",
+  "uefi_aarch64_exe": "316.0 KB",
+  "uefi_aarch64_bin": "154.2 KB",
+  "linux_aarch64_exe": "144.2 KB",
+  "linux_aarch64_bin": "143.0 KB",
+  "linux_i386_exe": "150.1 KB",
+  "linux_i386_bin": "149.2 KB",
+  "linux_armv7a_exe": "165.2 KB",
+  "linux_armv7a_bin": "164.1 KB",
+  "linux_x86_64_exe": "135.5 KB",
+  "linux_x86_64_bin": "134.3 KB",
+  "uefi_x86_64_exe": "309.5 KB",
+  "uefi_x86_64_bin": "147.6 KB",
+  "windows_i386_exe": "148.0 KB",
+  "windows_i386_bin": "142.0 KB",
+  "windows_aarch64_exe": "153.0 KB",
+  "windows_aarch64_bin": "152.4 KB"
+}
