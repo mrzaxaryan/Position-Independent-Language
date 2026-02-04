@@ -18,6 +18,7 @@
 #pragma once
 
 #include "value.h"  // includes State forward declaration
+#include "embedded_function_pointer.h"  // EMBED_FUNC macro
 
 namespace PIL
 {

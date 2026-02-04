@@ -162,17 +162,28 @@ endmacro()
 # =============================================================================
 # Source Collection
 # =============================================================================
-# Auto-discover include paths (all subdirs under include/)
-file(GLOB_RECURSE _all_headers CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/include/*.h")
-set(CPPPIC_INCLUDE_PATHS "${CMAKE_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/tests")
+# Auto-discover include paths (all subdirs under include/ and runtime/include/)
+file(GLOB_RECURSE _all_headers CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/include/*.h"
+    "${CMAKE_SOURCE_DIR}/runtime/include/*.h")
+set(CPPPIC_INCLUDE_PATHS
+    "${CMAKE_SOURCE_DIR}"
+    "${CMAKE_SOURCE_DIR}/include"
+    "${CMAKE_SOURCE_DIR}/tests"
+    "${CMAKE_SOURCE_DIR}/runtime/include")
 foreach(_hdr ${_all_headers})
     get_filename_component(_dir "${_hdr}" DIRECTORY)
     list(APPEND CPPPIC_INCLUDE_PATHS "${_dir}")
 endforeach()
 list(REMOVE_DUPLICATES CPPPIC_INCLUDE_PATHS)
 
-file(GLOB_RECURSE CPPPIC_SOURCES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/*.cc")
-file(GLOB_RECURSE CPPPIC_HEADERS CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/include/*.h" "${CMAKE_SOURCE_DIR}/tests/*.h")
+file(GLOB_RECURSE CPPPIC_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/runtime/src/*.cc"
+    "${CMAKE_SOURCE_DIR}/tests/*.cc")
+file(GLOB_RECURSE CPPPIC_HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/include/*.h"
+    "${CMAKE_SOURCE_DIR}/runtime/include/*.h"
+    "${CMAKE_SOURCE_DIR}/tests/*.h")
 
 # =============================================================================
 # Helper: Filter Platform Sources
