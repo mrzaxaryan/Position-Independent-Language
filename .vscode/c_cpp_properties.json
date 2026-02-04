@@ -1,0 +1,403 @@
+{
+    "version": 4,
+    "enableConfigurationSquiggles": true,
+    "env": {},
+    "configurations": [
+        {
+            "name": "windows-i386",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "windows-clang-x86",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_I386",
+                "PLATFORM_WINDOWS",
+                "PLATFORM_WINDOWS_I386",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/windows",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "windows-x86_64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "windows-clang-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_X86_64",
+                "PLATFORM_WINDOWS",
+                "PLATFORM_WINDOWS_X86_64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/windows",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "windows-aarch64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "windows-clang-arm64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_AARCH64",
+                "PLATFORM_WINDOWS",
+                "PLATFORM_WINDOWS_AARCH64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/windows",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "linux-i386",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "linux-clang-x86",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_I386",
+                "PLATFORM_LINUX",
+                "PLATFORM_LINUX_I386",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/linux",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "linux-x86_64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "linux-clang-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_X86_64",
+                "PLATFORM_LINUX",
+                "PLATFORM_LINUX_X86_64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/linux",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "linux-armv7a",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "linux-clang-arm",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_ARMV7A",
+                "PLATFORM_LINUX",
+                "PLATFORM_LINUX_ARMV7A",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/linux",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "linux-aarch64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "linux-clang-arm64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_AARCH64",
+                "PLATFORM_LINUX",
+                "PLATFORM_LINUX_AARCH64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/linux",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "uefi-x86_64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "windows-clang-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_X86_64",
+                "PLATFORM_UEFI",
+                "PLATFORM_UEFI_X86_64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/uefi",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        },
+        {
+            "name": "uefi-aarch64",
+            "compilerPath": "C:/Program Files/LLVM/bin/clang.exe",
+            "intelliSenseMode": "windows-clang-arm64",
+            "cStandard": "c17",
+            "cppStandard": "c++23",
+            "defines": [
+                "ARCHITECTURE_AARCH64",
+                "PLATFORM_UEFI",
+                "PLATFORM_UEFI_AARCH64",
+                "ENABLE_LOGGING"
+            ],
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/include/runtime",
+                "${workspaceFolder}/include/runtime/core",
+                "${workspaceFolder}/include/runtime/core/algorithms",
+                "${workspaceFolder}/include/runtime/core/string",
+                "${workspaceFolder}/include/runtime/core/types",
+                "${workspaceFolder}/include/runtime/core/types/embedded",
+                "${workspaceFolder}/include/runtime/core/types/network",
+                "${workspaceFolder}/include/runtime/core/types/numeric",
+                "${workspaceFolder}/include/runtime/platform",
+                "${workspaceFolder}/include/runtime/platform/uefi",
+                "${workspaceFolder}/include/runtime/io",
+                "${workspaceFolder}/include/runtime/memory",
+                "${workspaceFolder}/include/runtime/network",
+                "${workspaceFolder}/include/runtime/network/tls",
+                "${workspaceFolder}/include/runtime/system",
+                "${workspaceFolder}/include/runtime/crypt",
+                "${workspaceFolder}/include/language",
+                "${workspaceFolder}/tests/language",
+                "${workspaceFolder}/tests/runtime"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/tests"
+                ]
+            }
+        }
+    ]
+}
