@@ -1,19 +1,19 @@
-// Test sock_bind with closed socket handle
+// Test sock_redirect with closed socket handle
 // Should return -1 for closed/invalid socket
 
-// Get platform-appropriate shell
-var shell = "";
+// Get platform-appropriate process path
+var process_path = "";
 if (os() == "win") {
-    shell = "cmd.exe";
+    process_path = env("COMSPEC");
 } else if (os() == "linux") {
-    shell = "/bin/sh";
+    process_path = env("SHELL");
 }
 
 var sock = sock_connect("httpbin.org", 80);
 if (sock >= 0) {
     sock_close(sock);
-    // Now try to bind to the closed socket
-    var result = sock_bind(sock, shell);
+    // Now try to redirect to the closed socket
+    var result = sock_redirect(sock, process_path);
     print("Result with closed socket:", result);
     if (result == -1) { print("PASS"); }
 } else {

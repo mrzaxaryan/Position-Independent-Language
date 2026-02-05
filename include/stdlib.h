@@ -19,6 +19,7 @@
 
 #include "value.h"  // includes State forward declaration
 #include "embedded_function_pointer.h"  // EMBED_FUNC macro
+#include "environment.h"  // Environment::GetVariable
 
 namespace PIL
 {
@@ -1009,6 +1010,41 @@ NOINLINE Value StdLib_Os(FunctionContext& ctx) noexcept
 #endif
 }
 
+/**
+ * env(name) - Get environment variable value
+ *
+ * Returns the value of the specified environment variable, or empty string if not found.
+ *
+ * Common variables:
+ *   - Windows: COMSPEC (cmd.exe path), USERPROFILE, PATH
+ *   - Linux: SHELL, HOME, PATH, USER
+ *
+ * Usage:
+ *   var shell = env("SHELL");     // Linux: "/bin/bash"
+ *   var cmd = env("COMSPEC");     // Windows: "C:\Windows\System32\cmd.exe"
+ *
+ * NOTE: Returns empty string on UEFI (no environment variables).
+ */
+NOINLINE Value StdLib_Env(FunctionContext& ctx) noexcept
+{
+    if (!ctx.CheckArgs(1) || !ctx.IsString(0))
+    {
+        return Value::String(""_embed, 0);
+    }
+
+    const CHAR* name = ctx.ToString(0);
+
+    CHAR buffer[MAX_STRING_VALUE];
+    USIZE len = ::Environment::GetVariable(name, buffer, sizeof(buffer));
+
+    if (len == 0)
+    {
+        return Value::String(""_embed, 0);
+    }
+
+    return Value::String(buffer, len);
+}
+
 // ============================================================================
 // OPEN STANDARD LIBRARY
 // ============================================================================
@@ -1029,7 +1065,7 @@ NOINLINE Value StdLib_Os(FunctionContext& ctx) noexcept
  *   push, pop, contains, reverse
  *
  * System recon functions:
- *   os
+ *   os, env
  */
 NOINLINE void OpenStdLib(State& L) noexcept
 {
@@ -1073,6 +1109,7 @@ NOINLINE void OpenStdLib(State& L) noexcept
 
     // System recon functions
     L.Register("os"_embed, EMBED_FUNC(StdLib_Os));
+    L.Register("env"_embed, EMBED_FUNC(StdLib_Env));
 }
 
 } // namespace PIL
