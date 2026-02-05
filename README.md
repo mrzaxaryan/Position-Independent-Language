@@ -1043,6 +1043,19 @@ if (ws >= 0) {
 
 ---
 
+## Intended Use
+
+This project is designed exclusively for legitimate security purposes:
+
+- **Authorized penetration testing** with written scope and client approval
+- **Security research** with proper disclosure practices
+- **Educational purposes** for learning low-level systems programming
+- **CTF competitions** and controlled security challenges
+
+Any unauthorized or malicious use is strictly prohibited.
+
+---
+
 ## TODO: Red Team Helpers
 
 The following functions are planned for future implementation:
