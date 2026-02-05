@@ -113,7 +113,7 @@ PIL (Position Independent Language) is a lightweight, position-independent scrip
 - **Position-independent**: Uses `_embed` strings throughout
 - **Minimal footprint**: Designed for shellcode and embedded contexts
 - **State-based API**: Familiar State-based interface
-> **Note:** PIL runs on the Position-Independent Runtime (PIR), a C++23 runtime that provides complete independence from the C runtime and standard libraries. For details on the runtime architecture, supported platforms (Windows, Linux, UEFI), and build system, see [runtime/readme.md](runtime/readme.md).
+> **Note:** PIL runs on the Position-Independent Runtime (PIR), a C++23 runtime that provides complete independence from the C runtime and standard libraries. For details on the runtime architecture, supported platforms (Windows, Linux, UEFI), and build system, see [runtime/readme.md](https://github.com/mrzaxaryan/Position-Independent-Runtime/blob/main/README.md).
 ---
 
 ## Lexical Structure
