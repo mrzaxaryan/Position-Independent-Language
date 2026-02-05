@@ -980,6 +980,36 @@ NOINLINE Value StdLib_Reverse(FunctionContext& ctx) noexcept
 }
 
 // ============================================================================
+// SYSTEM RECON FUNCTIONS
+// ============================================================================
+
+/**
+ * os() - Get operating system type
+ *
+ * Returns the current platform as a string:
+ *   - "win" for Windows
+ *   - "linux" for Linux
+ *   - "uefi" for UEFI
+ *
+ * Usage:
+ *   var platform = os();  // "win", "linux", or "uefi"
+ *   if (os() == "win") { ... }
+ */
+NOINLINE Value StdLib_Os(FunctionContext& ctx) noexcept
+{
+    (void)ctx;  // Unused parameter
+#if defined(PLATFORM_WINDOWS) || defined(PLATFORM_WINDOWS_I386) || defined(PLATFORM_WINDOWS_X86_64) || defined(PLATFORM_WINDOWS_AARCH64)
+    return Value::String("win"_embed, 3);
+#elif defined(PLATFORM_LINUX)
+    return Value::String("linux"_embed, 5);
+#elif defined(PLATFORM_UEFI)
+    return Value::String("uefi"_embed, 4);
+#else
+    return Value::String("unknown"_embed, 7);
+#endif
+}
+
+// ============================================================================
 // OPEN STANDARD LIBRARY
 // ============================================================================
 
@@ -997,6 +1027,9 @@ NOINLINE Value StdLib_Reverse(FunctionContext& ctx) noexcept
  *
  * Array functions:
  *   push, pop, contains, reverse
+ *
+ * System recon functions:
+ *   os
  */
 NOINLINE void OpenStdLib(State& L) noexcept
 {
@@ -1037,6 +1070,9 @@ NOINLINE void OpenStdLib(State& L) noexcept
     L.Register("pop"_embed, EMBED_FUNC(StdLib_Pop));
     L.Register("contains"_embed, EMBED_FUNC(StdLib_Contains));
     L.Register("reverse"_embed, EMBED_FUNC(StdLib_Reverse));
+
+    // System recon functions
+    L.Register("os"_embed, EMBED_FUNC(StdLib_Os));
 }
 
 } // namespace PIL

