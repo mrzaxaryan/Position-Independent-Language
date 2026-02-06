@@ -104,8 +104,8 @@ PIL (Position Independent Language) is a lightweight, position-independent scrip
 |----------|-------|
 | **Name** | PIL |
 | **Type** | Dynamically typed, interpreted |
-| **Target** | Embedded in cpp-pic runtime |
-| **Dependencies** | None (no .rdata, no CRT) |
+| **Target** | Embedded in Position-Independent Runtime |
+| **Dependencies** | None (no `.rdata`, no CRT) |
 
 ### Design Philosophy
 
@@ -200,9 +200,9 @@ PIL has six value types:
 
 ### Type Coercion
 
-- **Truthiness**: `nil` and `false` are falsy; everything else is truthy
+- **Truthiness**: `nil` and `false` are falsy; all other values are truthy
 - **String concatenation**: `+` with strings performs concatenation
-- **Numeric operations**: Non-numbers in arithmetic cause runtime errors
+- **Numeric operations**: Using non-numeric values in arithmetic expressions results in runtime errors
 
 ---
 
@@ -515,21 +515,21 @@ PIL::OpenStdLib(L);
 
 | Function | Description | Example | Result |
 |----------|-------------|---------|--------|
-| `print(...)` | Print values to console | `print("x =", 42);` | Output: `x = 42` |
-| `len(v)` | Get length of string/array | `len("hello")` | `5` |
-| `str(v)` | Convert to string | `str(3.14)` | `"3.14"` |
-| `num(v)` | Convert to number | `num("3.14")` | `3.14` |
-| `type(v)` | Get type name | `type(42)` | `"number"` |
+| `print(...)` | Prints values to console | `print("x =", 42);` | Output: `x = 42` |
+| `len(v)` | Gets length of string/array | `len("hello")` | `5` |
+| `str(v)` | Converts to string | `str(3.14)` | `"3.14"` |
+| `num(v)` | Converts to number | `num("3.14")` | `3.14` |
+| `type(v)` | Gets type name | `type(42)` | `"number"` |
 | `abs(n)` | Absolute value | `abs(-5.5)` | `5.5` |
 | `min(a, b)` | Minimum of two values | `min(3, 5)` | `3` |
 | `max(a, b)` | Maximum of two values | `max(3, 5)` | `5` |
 | `floor(n)` | Round down to nearest integer | `floor(3.7)` | `3` |
 | `ceil(n)` | Round up to nearest integer | `ceil(3.2)` | `4` |
-| `int(n)` | Truncate to integer (toward zero) | `int(-3.7)` | `-3` |
-| `push(arr, v)` | Add element to array | `push(arr, 4)` | - |
-| `pop(arr)` | Remove last element | `pop(arr)` | Last element |
-| `os()` | Get OS type | `os()` | `"win"`, `"linux"`, or `"uefi"` |
-| `env(name)` | Get environment variable | `env("COMSPEC")` | `"C:\Windows\System32\cmd.exe"` |
+| `int(n)` | Truncates to integer (toward zero) | `int(-3.7)` | `-3` |
+| `push(arr, v)` | Adds element to array | `push(arr, 4)` | - |
+| `pop(arr)` | Removes last element | `pop(arr)` | Last element |
+| `os()` | Gets OS type | `os()` | `"win"`, `"linux"`, or `"uefi"` |
+| `env(name)` | Gets environment variable | `env("COMSPEC")` | `"C:\Windows\System32\cmd.exe"` |
 
 ---
 
@@ -541,18 +541,18 @@ File operations are available through the standard library.
 
 | Function | Description |
 |----------|-------------|
-| `fopen(path, mode)` | Open file. Modes: `"r"`, `"w"`, `"a"`, `"rb"`, `"wb"`, `"ab"` |
-| `fclose(handle)` | Close file |
-| `fread(handle [, size])` | Read from file (max 255 bytes per call) |
-| `freadline(handle)` | Read a line from file |
-| `fwrite(handle, data)` | Write to file |
-| `fexists(path)` | Check if file exists |
-| `fdelete(path)` | Delete file |
-| `fsize(handle)` | Get file size |
-| `fseek(handle, offset, origin)` | Set position (0=start, 1=current, 2=end) |
-| `ftell(handle)` | Get current position |
-| `mkdir(path)` | Create directory |
-| `rmdir(path)` | Remove directory |
+| `fopen(path, mode)` | Opens file. Modes: `"r"`, `"w"`, `"a"`, `"rb"`, `"wb"`, `"ab"` |
+| `fclose(handle)` | Closes file |
+| `fread(handle [, size])` | Reads from file (max 255 bytes per call) |
+| `freadline(handle)` | Reads a line from file |
+| `fwrite(handle, data)` | Writes to file |
+| `fexists(path)` | Checks if file exists |
+| `fdelete(path)` | Deletes file |
+| `fsize(handle)` | Gets file size |
+| `fseek(handle, offset, origin)` | Sets position (0=start, 1=current, 2=end) |
+| `ftell(handle)` | Gets current position |
+| `mkdir(path)` | Creates directory |
+| `rmdir(path)` | Removes directory |
 
 Maximum 16 open files simultaneously.
 
@@ -603,11 +603,11 @@ PIL::OpenNetworkIO(L, &netCtx);
 
 | Function | Description |
 |----------|-------------|
-| `sock_connect(IP, port)` | Connect to IP:port, returns handle or -1 |
-| `sock_close(handle)` | Close socket, returns true/false |
-| `sock_send(handle, data)` | Send data, returns bytes sent or -1 |
-| `sock_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
-| `sock_redirect(handle, process_path)` | Redirect socket to new process stdin/stdout, returns PID or -1 |
+| `sock_connect(IP, port)` | Connects to IP:port, returns handle or -1 |
+| `sock_close(handle)` | Closes socket, returns true/false |
+| `sock_send(handle, data)` | Sends data, returns bytes sent or -1 |
+| `sock_recv(handle [, size])` | Receives data (max 255 bytes), returns string |
+| `sock_redirect(handle, process_path)` | Redirects socket to new process stdin/stdout, returns PID or -1 |
 
 Maximum 8 sockets simultaneously.
 
@@ -654,9 +654,9 @@ if (sock >= 0) {
 
 | Function | Description |
 |----------|-------------|
-| `dns_resolve(hostname)` | Resolve hostname to IP string (IPv6 preferred) |
-| `dns_resolve4(hostname)` | Resolve hostname to IPv4 string |
-| `dns_resolve6(hostname)` | Resolve hostname to IPv6 string |
+| `dns_resolve(hostname)` | Resolves hostname to IP string (IPv6 preferred) |
+| `dns_resolve4(hostname)` | Resolves hostname to IPv4 string |
+| `dns_resolve6(hostname)` | Resolves hostname to IPv6 string |
 
 #### Example
 
@@ -672,11 +672,11 @@ var ipv6 = dns_resolve6("example.com");
 
 | Function | Description |
 |----------|-------------|
-| `http_open(url)` | Create HTTP client for URL, returns handle or -1 |
-| `http_get(handle)` | Send GET request, returns true/false |
-| `http_post(handle, data)` | Send POST request, returns true/false |
-| `http_read(handle [, size])` | Read response (max 255 bytes), returns string |
-| `http_close(handle)` | Close HTTP client, returns true/false |
+| `http_open(url)` | Creates HTTP client for URL, returns handle or -1 |
+| `http_get(handle)` | Sends GET request, returns true/false |
+| `http_post(handle, data)` | Sends POST request, returns true/false |
+| `http_read(handle [, size])` | Reads response (max 255 bytes), returns string |
+| `http_close(handle)` | Closes HTTP client, returns true/false |
 
 Maximum 4 HTTP clients simultaneously.
 
@@ -702,13 +702,13 @@ if (http >= 0) {
 
 | Function | Description |
 |----------|-------------|
-| `ws_connect(url)` | Connect to WebSocket server (ws:// or wss://), returns handle or -1 |
-| `ws_close(handle)` | Close WebSocket connection, returns true/false |
-| `ws_send(handle, data [, opcode])` | Send data with optional opcode, returns bytes sent or -1 |
-| `ws_send_text(handle, data)` | Send text data (opcode=1), returns bytes sent or -1 |
-| `ws_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
-| `ws_ping(handle)` | Send ping frame, returns true/false |
-| `ws_pong(handle)` | Send pong frame, returns true/false |
+| `ws_connect(url)` | Connects to WebSocket server (ws:// or wss://), returns handle or -1 |
+| `ws_close(handle)` | Closes WebSocket connection, returns true/false |
+| `ws_send(handle, data [, opcode])` | Sends data with optional opcode, returns bytes sent or -1 |
+| `ws_send_text(handle, data)` | Sends text data (opcode=1), returns bytes sent or -1 |
+| `ws_recv(handle [, size])` | Receives data (max 255 bytes), returns string |
+| `ws_ping(handle)` | Sends ping frame, returns true/false |
+| `ws_pong(handle)` | Sends pong frame, returns true/false |
 
 Maximum 4 WebSocket connections simultaneously.
 
@@ -820,16 +820,16 @@ L->SetGlobalBool("debug"_embed, 5, TRUE);
 
 | Method | Description |
 |--------|-------------|
-| `ArgCount()` | Get number of arguments |
-| `CheckArgs(n)` | Check if exactly n arguments |
-| `IsNil(i)` | Check if argument i is nil |
-| `IsBool(i)` | Check if argument i is bool |
-| `IsNumber(i)` | Check if argument i is number |
-| `IsString(i)` | Check if argument i is string |
-| `IsArray(i)` | Check if argument i is array |
-| `ToBool(i)` | Get argument i as bool |
-| `ToNumber(i)` | Get argument i as number |
-| `ToString(i)` | Get argument i as string |
+| `ArgCount()` | Returns the number of arguments |
+| `CheckArgs(n)` | Checks whether exactly `n` arguments |
+| `IsNil(i)` | Checks whether argument `i` is `nil` |
+| `IsBool(i)` | Checks whether argument `i` is a boolean |
+| `IsNumber(i)` | Checks whether argument `i` is a number |
+| `IsString(i)` | Checks whether argument `i` is a string |
+| `IsArray(i)` | Checks whether argument `i` is an array |
+| `ToBool(i)` | Returns argument `i` as a boolean |
+| `ToNumber(i)` | Returns argument `i` as a number |
+| `ToString(i)` | Returns argument `i` as a string |
 
 ### Value Creation
 
@@ -860,25 +860,25 @@ if (!L->DoString(source))
 
 | Error | Cause |
 |-------|-------|
-| `Undefined variable 'x'` | Using undeclared variable |
-| `Division by zero` | Dividing by zero |
-| `Type error` | Invalid operation for types |
-| `Index out of bounds` | Array/string index invalid |
-| `Too many arguments` | Exceeding function parameter limit |
-| `break outside loop` | Using break outside a loop |
-| `continue outside loop` | Using continue outside a loop |
+| `Undefined variable 'x'` | Use of an undeclared variable |
+| `Division by zero` | Attempt to divide by zero |
+| `Type error` | Invalid operation for the given types |
+| `Index out of bounds` | Invalid array or string index |
+| `Too many arguments` | Exceeding the function parameter limit |
+| `break outside loop` | `break` used outside of a loop |
+| `continue outside loop` | `continue` used outside of a loop |
 
 ---
 
 ## Constraints
 
-Due to cpp-pic compatibility requirements:
+Due to Position-Independent Runtime compatibility requirements:
 
-1. **No .rdata**: All strings use `_embed` suffix
-2. **No exceptions**: Uses error codes/flags
-3. **No dynamic allocation**: Fixed-size buffers and pools
-4. **No STL**: Custom containers only
-5. **Position-independent**: No relocation dependencies
+1. **No .rdata**: All strings use the `_embed` suffix
+2. **No exceptions**: Errors are reported via codes or flags
+3. **No dynamic allocation**: Only fixed-size buffers and memory pools are used
+4. **No STL**: Custom containers are required
+5. **Position-independent**: Code has no relocation dependencies
 
 ### Limits
 
@@ -1064,17 +1064,17 @@ The following functions are planned for future implementation:
 
 | Function | Description |
 |----------|-------------|
-| `ws_redirect(ws, process_path)` | Redirect WebSocket to process stdin/stdout |
-| `exec(cmd)` | Execute command, return output |
-| `spawn(cmd)` | Spawn async process, return handle |
+| `ws_redirect(ws, process_path)` | Redirects WebSocket to process stdin/stdout |
+| `exec(cmd)` | Executes command, returns output |
+| `spawn(cmd)` | Spawns async process, returns handle |
 | `pipe_read(handle)` / `pipe_write(handle, data)` | I/O with spawned process |
 
 ### SOCKS Proxy
 
 | Function | Description |
 |----------|-------------|
-| `socks_server(port)` | Start SOCKS4/5 proxy server |
-| `socks_connect(proxy, pport, target, tport)` | Connect through SOCKS proxy |
+| `socks_server(port)` | Starts SOCKS4/5 proxy server |
+| `socks_connect(proxy, pport, target, tport)` | Connects through SOCKS proxy |
 
 ### Data Encoding/Crypto
 
@@ -1091,18 +1091,18 @@ The following functions are planned for future implementation:
 
 | Function | Description |
 |----------|-------------|
-| `hostname()` | Get system hostname |
-| `whoami()` | Current username |
-| `pid()` | Current process ID |
-| `arch()` | Architecture (x86/x64/arm/arm64) |
+| `hostname()` | Returns the system hostname |
+| `whoami()` | Returns the current username |
+| `pid()` | Returns the current process ID |
+| `arch()` | Returns the system architecture (`x86`, `x64`, `arm`, `arm64`) |
 
 ### Port Scanning
 
 | Function | Description |
 |----------|-------------|
-| `port_open(host, port)` | Check if port is open |
-| `port_scan(host, start, end)` | Scan port range, return open ports array |
-| `service_banner(host, port)` | Grab service banner |
+| `port_open(host, port)` | Checks whether a specific port on a host is open |
+| `port_scan(host, start, end)` | Scans a range of ports and returns an array of open ports |
+| `service_banner(host, port)` | Retrieves the service banner from the specified port |
 
 ---
 
