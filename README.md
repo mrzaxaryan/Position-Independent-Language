@@ -603,7 +603,7 @@ PIL::OpenNetworkIO(L, &netCtx);
 
 | Function | Description |
 |----------|-------------|
-| `sock_connect(host, port)` | Connect to host:port, returns handle or -1 |
+| `sock_connect(IP, port)` | Connect to IP:port, returns handle or -1 |
 | `sock_close(handle)` | Close socket, returns true/false |
 | `sock_send(handle, data)` | Send data, returns bytes sent or -1 |
 | `sock_recv(handle [, size])` | Receive data (max 255 bytes), returns string |
@@ -614,7 +614,7 @@ Maximum 8 sockets simultaneously.
 #### Example
 
 ```javascript
-var sock = sock_connect("httpbin.org", 80);
+var sock = sock_connect("54.208.105.16", 80);
 if (sock >= 0) {
     sock_send(sock, "GET / HTTP/1.0\r\nHost: httpbin.org\r\n\r\n");
     var response = sock_recv(sock, 255);
@@ -627,7 +627,7 @@ if (sock >= 0) {
 
 ```javascript
 // Cross-platform socket redirect using env() for path resolution
-var sock = sock_connect("example.com", 4444);
+var sock = sock_connect("192.168.1.100", 4444);
 if (sock >= 0) {
     var process_path = "";
     var platform = os();

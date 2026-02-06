@@ -15,7 +15,7 @@
  *   L.DoString("var ip = dns_resolve(\"example.com\"); print(ip);");
  *
  * SOCKET FUNCTIONS:
- *   sock_connect(host, port)    - Connect to host:port, returns handle or -1
+ *   sock_connect(IP, port)      - Connect to IP:port, returns handle or -1
  *   sock_close(handle)          - Close socket, returns true/false
  *   sock_send(handle, data)     - Send data, returns bytes sent or -1
  *   sock_recv(handle [, size])  - Receive data (max 255 bytes), returns string
@@ -424,9 +424,9 @@ FORCE_INLINE NetworkContext* GetNetworkContext(FunctionContext& ctx) noexcept
 // ============================================================================
 
 /**
- * sock_connect(host, port) - Connect to a remote host
+ * sock_connect(IP, port) - Connect to a remote host
  *
- * @param host Hostname or IP address string
+ * @param IP IP address string
  * @param port Port number
  * @return Socket handle (number) or -1 on error
  */
@@ -443,11 +443,11 @@ NOINLINE Value NetIO_SockConnect(FunctionContext& ctx) noexcept
         return Value::Number(-1);
     }
 
-    const CHAR* host = ctx.ToString(0);
+    const CHAR* ipStr = ctx.ToString(0);
     UINT16 port = (UINT16)ctx.ToNumber(1);
 
-    // Resolve hostname to IP address
-    IPAddress ip = DNS::Resolve(host);
+    // Parse IP address string
+    IPAddress ip = IPAddress::FromString(ipStr);
     if (!ip.IsValid())
     {
         return Value::Number(-1);
@@ -609,7 +609,7 @@ NOINLINE Value NetIO_SockRecv(FunctionContext& ctx) noexcept
  * NOTE: Caller must provide full path - use env("SHELL") on Linux or env("COMSPEC") on Windows.
  *
  * Example:
- *   var sock = sock_connect("example.com", 4444);
+ *   var sock = sock_connect("192.168.1.100", 4444);
  *   if (sock >= 0) {
  *       var process_path = env("COMSPEC");  // or env("SHELL") on Linux
  *       var pid = sock_redirect(sock, process_path);
@@ -1266,7 +1266,7 @@ NOINLINE Value NetIO_WsPong(FunctionContext& ctx) noexcept
  *
  * Functions registered:
  *   Socket:
- *     1. sock_connect   - Connect to host:port
+ *     1. sock_connect   - Connect to IP:port
  *     2. sock_close     - Close socket
  *     3. sock_send      - Send data
  *     4. sock_recv      - Receive data
