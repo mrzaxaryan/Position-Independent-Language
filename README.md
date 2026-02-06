@@ -210,7 +210,7 @@ PIL has six value types:
 
 ### Declaration
 
-Variables are declared with `var`:
+Variables are declared via `var`:
 
 ```javascript
 var x = 10;
