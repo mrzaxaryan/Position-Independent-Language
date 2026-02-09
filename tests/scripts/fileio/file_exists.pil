@@ -1,6 +1,9 @@
 // File should not exist initially
+var result = true;
+
 if (fexists("test_exists.txt")) {
     print("ERROR: File should not exist yet");
+    result = false;
 }
 
 // Create file
@@ -13,6 +16,7 @@ if (fexists("test_exists.txt")) {
     print("File exists after creation - PASS");
 } else {
     print("ERROR: File should exist after creation");
+    result = false;
 }
 
 // Clean up
@@ -23,4 +27,5 @@ if (!fexists("test_exists.txt")) {
     print("File gone after deletion - PASS");
 } else {
     print("ERROR: File should be deleted");
+    result = false;
 }
