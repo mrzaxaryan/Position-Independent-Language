@@ -17,7 +17,9 @@ if (sock >= 0) {
     var result = sock_redirect(sock, process_path);
     print("Result with closed socket:", result);
     if (result == -1) { print("PASS"); }
+    else { result = false; print("FAIL");}
 } else {
     // If we can't connect, skip the test
-    print("PASS");
+    result = false;
+    print("FAIL");
 }

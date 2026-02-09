@@ -2,5 +2,11 @@
 var result = true;
 var http = http_open("http://httpbin.org/get");
 print("HTTP handle:", http);
-if (http >= 0) { print("PASS"); }
-if (http >= 0) { http_close(http); }
+if (http >= 0) {
+     print("PASS");
+     http_close(http); 
+    }
+else {
+     print("FAIL");
+     result = false;
+}

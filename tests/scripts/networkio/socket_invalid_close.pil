@@ -2,3 +2,8 @@
 var result = true;
 var closed = sock_close(999);
 if (!closed) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

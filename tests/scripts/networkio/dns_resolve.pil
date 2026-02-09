@@ -4,3 +4,8 @@ var result = true;
 var ip = dns_resolve("cloudflare.com");
 print("Resolved:", ip);
 if (len(ip) > 0) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

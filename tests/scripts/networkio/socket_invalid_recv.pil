@@ -2,3 +2,8 @@
 var result = true;
 var data = sock_recv(999);
 if (len(data) == 0) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

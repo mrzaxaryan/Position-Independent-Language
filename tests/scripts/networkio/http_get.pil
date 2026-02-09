@@ -6,4 +6,9 @@ print("GET sent:", sent);
 var resp = http_read(http, 255);
 print("Response:", len(resp), "bytes");
 if (len(resp) > 0) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}
 http_close(http);

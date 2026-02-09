@@ -2,3 +2,8 @@
 var result = true;
 var sent = http_get(999);
 if (!sent) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

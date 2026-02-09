@@ -2,3 +2,8 @@
 var result = true;
 var posted = http_post(999, "test");
 if (!posted) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}
