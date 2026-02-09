@@ -2,6 +2,7 @@
 var f = fopen("test_seek.txt", "w");
 fwrite(f, "0123456789");
 fclose(f);
+var result = true;
 
 // Open for reading and test fsize
 var f2 = fopen("test_seek.txt", "r");
@@ -11,6 +12,7 @@ if (size == 10) {
     print("Size correct - PASS");
 } else {
     print("ERROR: Expected size 10");
+    result = false;
 }
 
 // Test ftell at start
@@ -19,6 +21,7 @@ if (pos == 0) {
     print("Initial position 0 - PASS");
 } else {
     print("ERROR: Expected position 0, got", pos);
+    result = false;
 }
 
 // Read some bytes and check position
@@ -29,6 +32,7 @@ if (pos == 5) {
     print("Position after read - PASS");
 } else {
     print("ERROR: Expected position 5, got", pos);
+    result = false;
 }
 
 // Seek to start
@@ -38,6 +42,7 @@ if (pos == 0) {
     print("Seek to start - PASS");
 } else {
     print("ERROR: Seek to start failed");
+    result = false;
 }
 
 // Seek to end
@@ -47,6 +52,7 @@ if (pos == 10) {
     print("Seek to end - PASS");
 } else {
     print("ERROR: Seek to end failed, got", pos);
+    result = false;
 }
 
 // Seek relative from current - back 3 bytes
@@ -56,6 +62,7 @@ if (pos == 7) {
     print("Relative seek - PASS");
 } else {
     print("ERROR: Relative seek failed, got", pos);
+    result = false;
 }
 
 fclose(f2);
