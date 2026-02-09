@@ -1,9 +1,13 @@
 // Try to open non-existent file for reading
 var f = fopen("nonexistent_file_12345.txt", "r");
+
+var result = true;
+
 if (f < 0) {
     print("Opening non-existent file returns -1 - PASS");
 } else {
     print("ERROR: Should fail to open non-existent file");
+    result false;
     fclose(f);
 }
 
@@ -13,6 +17,7 @@ if (!closed) {
     print("Closing invalid handle returns false - PASS");
 } else {
     print("ERROR: Should fail to close invalid handle");
+    result false;
 }
 
 // Try to read from invalid handle
@@ -21,6 +26,7 @@ if (len(data) == 0) {
     print("Reading invalid handle returns empty - PASS");
 } else {
     print("ERROR: Should return empty for invalid handle");
+    result false;
 }
 
 // Try to write to invalid handle
@@ -29,6 +35,7 @@ if (written < 0) {
     print("Writing to invalid handle returns -1 - PASS");
 } else {
     print("ERROR: Should fail to write to invalid handle");
+    result false;
 }
 
 // Invalid mode
@@ -37,5 +44,6 @@ if (f2 < 0) {
     print("Invalid mode returns -1 - PASS");
 } else {
     print("ERROR: Should fail with invalid mode");
+    result false;
     fclose(f2);
 }
