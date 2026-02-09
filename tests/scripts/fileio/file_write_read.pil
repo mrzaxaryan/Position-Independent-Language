@@ -1,7 +1,9 @@
 // Write to file
 var f = fopen("test_rw.txt", "w");
+var result = true;
 if (f < 0) {
     print("ERROR: Failed to open file for writing");
+    result = false;
 } else {
     var written = fwrite(f, "Hello, World!");
     print("Wrote", written, "bytes");
@@ -12,6 +14,7 @@ if (f < 0) {
 var f2 = fopen("test_rw.txt", "r");
 if (f2 < 0) {
     print("ERROR: Failed to open file for reading");
+    result = false;
 } else {
     var content = fread(f2);
     print("Read content:", content);
@@ -19,6 +22,7 @@ if (f2 < 0) {
         print("Content matches!");
     } else {
         print("ERROR: Content mismatch");
+        result = false;
     }
     fclose(f2);
 }
