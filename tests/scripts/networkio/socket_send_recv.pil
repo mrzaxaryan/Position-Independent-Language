@@ -8,4 +8,8 @@ print("Sent:", sent);
 var data = sock_recv(sock, 100);
 print("Received:", len(data), "bytes");
 if (len(data) > 0) { print("PASS"); }
+else {
+    print("FAIL");
+    result = false;
+}
 sock_close(sock);
