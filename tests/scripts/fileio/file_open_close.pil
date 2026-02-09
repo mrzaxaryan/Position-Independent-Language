@@ -1,6 +1,9 @@
+var result = true;
+
 var f = fopen("test_open.txt", "w");
 if (f < 0) {
     print("ERROR: Failed to open file for writing");
+    result = false;
 } else {
     print("Opened file with handle:", f);
     var closed = fclose(f);
@@ -8,6 +11,7 @@ if (f < 0) {
         print("File closed successfully");
     } else {
         print("ERROR: Failed to close file");
+        result = false;
     }
 }
 
