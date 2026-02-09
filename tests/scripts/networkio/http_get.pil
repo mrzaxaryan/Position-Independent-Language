@@ -1,4 +1,5 @@
 // Test HTTP GET
+var result = true;
 var http = http_open("http://httpbin.org/ip");
 var sent = http_get(http);
 print("GET sent:", sent);

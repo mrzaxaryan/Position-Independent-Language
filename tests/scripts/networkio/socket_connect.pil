@@ -1,4 +1,6 @@
 // Test socket connect
+
+var result = true;
 var sock = sock_connect("httpbin.org", 80);
 print("Socket handle:", sock);
 if (sock >= 0) { print("PASS"); }

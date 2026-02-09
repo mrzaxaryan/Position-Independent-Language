@@ -1,6 +1,8 @@
 // Test sock_redirect with valid socket and process path
 // Should return a valid PID (>= 0) when successful
 
+var result = true;
+
 // Get platform-appropriate process path
 var process_path = "";
 var platform = os();

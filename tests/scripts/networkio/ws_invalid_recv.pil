@@ -1,3 +1,5 @@
 // Test WebSocket invalid recv
+
+var result = true;
 var data = ws_recv(999);
 if (len(data) == 0) { print("PASS"); }

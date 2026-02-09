@@ -1,4 +1,6 @@
 // Test WebSocket send and receive
+
+var result = true;
 var ws = ws_connect("wss://echo.websocket.org");
 var sent = ws_send_text(ws, "Hello");
 print("Sent:", sent);

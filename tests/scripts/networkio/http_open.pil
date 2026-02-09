@@ -1,4 +1,5 @@
 // Test HTTP open
+var result = true;
 var http = http_open("http://httpbin.org/get");
 print("HTTP handle:", http);
 if (http >= 0) { print("PASS"); }

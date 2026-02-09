@@ -1,4 +1,6 @@
 // Test WebSocket connect
+
+var result = true;
 var ws = ws_connect("wss://echo.websocket.org");
 print("WebSocket handle:", ws);
 if (ws >= 0) { print("PASS"); }

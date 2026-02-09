@@ -1,9 +1,10 @@
 // Test sock_redirect with empty process path
 // Should return -1 for empty path
 
+var result = true;
 var sock = sock_connect("httpbin.org", 80);
 if (sock >= 0) {
-    var result = sock_redirect(sock, "");
+    result = sock_redirect(sock, "");
     print("Result with empty path:", result);
     if (result == -1) { print("PASS"); }
     sock_close(sock);

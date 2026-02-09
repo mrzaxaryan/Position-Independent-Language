@@ -1,3 +1,4 @@
 // Test DNS resolve IPv6
+var result = true;
 var ip6 = dns_resolve6("cloudflare.com");
 print("IPv6:", ip6);

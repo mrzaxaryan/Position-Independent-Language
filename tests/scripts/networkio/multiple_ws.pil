@@ -1,4 +1,6 @@
 // Test multiple WebSocket connections
+
+var result = true;
 var ws1 = ws_connect("wss://echo.websocket.org");
 var ws2 = ws_connect("wss://echo.websocket.org");
 print("Handles:", ws1, ws2);

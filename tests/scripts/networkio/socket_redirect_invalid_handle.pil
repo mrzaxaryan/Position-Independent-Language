@@ -1,6 +1,7 @@
 // Test sock_redirect with invalid socket handle
 // Should return -1 for invalid handle
 
+var result = true;
 // Get platform-appropriate process path
 var process_path = "";
 if (os() == "win") {

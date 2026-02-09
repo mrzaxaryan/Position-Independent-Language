@@ -1,5 +1,6 @@
 // Test sock_redirect with closed socket handle
 // Should return -1 for closed/invalid socket
+var result = true;
 
 // Get platform-appropriate process path
 var process_path = "";

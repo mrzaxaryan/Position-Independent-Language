@@ -1,4 +1,6 @@
 // Test socket send and receive
+
+var result = true;
 var sock = sock_connect("httpbin.org", 80);
 var req = "GET / HTTP/1.0\r\nHost: httpbin.org\r\n\r\n";
 var sent = sock_send(sock, req);
