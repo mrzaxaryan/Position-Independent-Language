@@ -31,13 +31,15 @@ if (len(process_path) > 0) {
             // sock_redirect may fail if process creation fails
             // This is not necessarily a test failure on all systems
             print("sock_redirect returned error (may be expected on some systems)");
-            print("PASS");
+            print("FAIL");
+            result = false;
         }
 
         sock_close(sock);
     } else {
         // If we can't connect, skip the test
         print("Could not connect to test server");
-        print("PASS");
+        print("FAIL");
+        result = false;
     }
 }
