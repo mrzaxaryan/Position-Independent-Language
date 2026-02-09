@@ -1,14 +1,12 @@
-// Test socket connect
+// Test WebSocket connect
 
 var result = true;
-var sock = sock_connect("3.223.36.72", 80);
-print("Socket handle:", sock);
-if (sock >= 0) { 
+var ws = ws_connect("wss://echo.websocket.org");
+print("WebSocket handle:", ws);
+if (ws >= 0) { 
     print("PASS"); 
-    sock_close(sock); 
+    ws_close(ws); 
 }
-else 
-{
-    print("FAIL");
+else{
     result = false;
 }
