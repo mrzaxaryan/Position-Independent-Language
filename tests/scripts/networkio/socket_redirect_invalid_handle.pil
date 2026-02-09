@@ -10,6 +10,10 @@ if (os() == "win") {
     process_path = env("SHELL");
 }
 
-var result = sock_redirect(-1, process_path);
-print("Result with invalid handle:", result);
-if (result == -1) { print("PASS"); }
+var redirect_result = sock_redirect(-1, process_path);
+print("Result with invalid handle:", redirect_result);
+if (redirect_result == -1) { print("PASS"); }
+else {
+    print("FAIL");
+    result = false;
+}
