@@ -7,8 +7,10 @@ if (sock >= 0) {
     result = sock_redirect(sock, "");
     print("Result with empty path:", result);
     if (result == -1) { print("PASS"); }
+    else {print("FAIL"); result = false; }
     sock_close(sock);
 } else {
     // If we can't connect, skip the test
-    print("PASS");
+    print("FAIL");
+    result = false;
 }
