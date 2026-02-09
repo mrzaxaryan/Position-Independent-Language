@@ -3,6 +3,8 @@ var f1 = fopen("multi1.txt", "w");
 var f2 = fopen("multi2.txt", "w");
 var f3 = fopen("multi3.txt", "w");
 
+var result = true;
+
 if (f1 >= 0 && f2 >= 0 && f3 >= 0) {
     print("Opened 3 files with handles:", f1, f2, f3);
 
@@ -11,6 +13,7 @@ if (f1 >= 0 && f2 >= 0 && f3 >= 0) {
         print("All handles unique - PASS");
     } else {
         print("ERROR: Handles should be unique");
+        result = false;
     }
 
     // Write different content to each
@@ -39,6 +42,7 @@ if (f1 >= 0 && f2 >= 0 && f3 >= 0) {
         print("Multiple files content correct - PASS");
     } else {
         print("ERROR: Content mismatch");
+        result = false;
     }
 
     fclose(r1);
@@ -46,6 +50,7 @@ if (f1 >= 0 && f2 >= 0 && f3 >= 0) {
     fclose(r3);
 } else {
     print("ERROR: Failed to open multiple files");
+    result = false;
 }
 
 // Clean up
