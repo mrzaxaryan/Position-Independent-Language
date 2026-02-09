@@ -7,4 +7,8 @@ print("Sent:", sent);
 var data = ws_recv(ws);
 print("Received:", len(data), "bytes");
 if (len(data) > 0) { print("PASS"); }
+else {
+    print("FAIL");
+    result = false;
+}
 ws_close(ws);

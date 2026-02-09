@@ -4,3 +4,7 @@ var result = true;
 var ws = ws_connect("wss://echo.websocket.org");
 var closed = ws_close(ws);
 if (closed) { print("PASS"); }
+else {
+    print("FAIL");
+    result = false;
+}
