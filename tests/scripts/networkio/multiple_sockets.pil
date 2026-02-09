@@ -1,7 +1,7 @@
 // Test multiple sockets
 var result = true;
-var s1 = sock_connect("httpbin.org", 80);
-var s2 = sock_connect("httpbin.org", 80);
+var s1 = sock_connect("3.223.36.72", 80);
+var s2 = sock_connect("3.223.36.72", 80);
 print("Handles:", s1, s2);
 if (s1 >= 0 && s2 >= 0 && s1 != s2) 
     { print("PASS"); 

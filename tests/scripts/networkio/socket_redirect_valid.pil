@@ -18,7 +18,7 @@ if (platform == "win") {
 }
 
 if (len(process_path) > 0) {
-    var sock = sock_connect("httpbin.org", 80);
+    var sock = sock_connect("1.1.1.1", 80);
     if (sock >= 0) {
         var pid = sock_redirect(sock, process_path);
         print("Platform:", platform);

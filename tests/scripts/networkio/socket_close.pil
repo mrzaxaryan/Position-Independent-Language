@@ -1,7 +1,7 @@
 // Test socket close
 
 var result = true;
-var sock = sock_connect("httpbin.org", 80);
+var sock = sock_connect("1.1.1.1", 80);
 var closed = sock_close(sock);
 if (closed) { print("PASS"); }
 else 

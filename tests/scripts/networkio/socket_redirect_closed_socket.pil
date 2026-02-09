@@ -10,7 +10,7 @@ if (os() == "win") {
     process_path = env("SHELL");
 }
 
-var sock = sock_connect("httpbin.org", 80);
+var sock = sock_connect("3.223.36.72", 80);
 if (sock >= 0) {
     sock_close(sock);
     // Now try to redirect to the closed socket
