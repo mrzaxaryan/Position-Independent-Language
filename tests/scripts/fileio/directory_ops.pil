@@ -1,9 +1,12 @@
 // Create directory
 var created = mkdir("test_dir");
+var result = true;
+
 if (created) {
     print("Directory created - PASS");
 } else {
     print("ERROR: Failed to create directory");
+    result = false;
 }
 
 // Create a file inside the directory

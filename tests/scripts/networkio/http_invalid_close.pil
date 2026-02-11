@@ -1,3 +1,9 @@
 // Test HTTP invalid close
+var result = true;
 var closed = http_close(999);
 if (!closed) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

@@ -1,4 +1,10 @@
 // Test HTTP close
+var result = true;
 var http = http_open("http://httpbin.org/get");
 var closed = http_close(http);
 if (closed) { print("PASS"); }
+else 
+{
+     print("FAIL");
+     result = false;
+}

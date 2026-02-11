@@ -1,9 +1,15 @@
 // Test socket send and receive
-var sock = sock_connect("httpbin.org", 80);
+
+var result = true;
+var sock = sock_connect("3.223.36.72", 80);
 var req = "GET / HTTP/1.0\r\nHost: httpbin.org\r\n\r\n";
 var sent = sock_send(sock, req);
 print("Sent:", sent);
 var data = sock_recv(sock, 100);
 print("Received:", len(data), "bytes");
 if (len(data) > 0) { print("PASS"); }
+else {
+    print("FAIL");
+    result = false;
+}
 sock_close(sock);

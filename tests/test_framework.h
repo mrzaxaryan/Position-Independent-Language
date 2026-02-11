@@ -15,7 +15,7 @@
  * LoadScript - Load a PIL script from a file with dynamic allocation
  * Reads until EOF with no size limit. Caller must delete[] the returned buffer.
  */
-static inline CHAR* LoadScript(PCWCHAR path)
+static inline CHAR *LoadScript(PCWCHAR path)
 {
     File file = FileSystem::Open(path, FileSystem::FS_READ | FileSystem::FS_BINARY);
     if (!file.IsValid())
@@ -27,7 +27,7 @@ static inline CHAR* LoadScript(PCWCHAR path)
     // Start with 4KB, grow as needed
     USIZE capacity = 4096;
     USIZE totalRead = 0;
-    CHAR* buffer = new CHAR[capacity];
+    CHAR *buffer = new CHAR[capacity];
 
     while (true)
     {
@@ -35,7 +35,7 @@ static inline CHAR* LoadScript(PCWCHAR path)
         if (totalRead + 4096 >= capacity)
         {
             capacity *= 2;
-            CHAR* newBuffer = new CHAR[capacity];
+            CHAR *newBuffer = new CHAR[capacity];
             for (USIZE i = 0; i < totalRead; i++)
                 newBuffer[i] = buffer[i];
             delete[] buffer;
@@ -44,7 +44,7 @@ static inline CHAR* LoadScript(PCWCHAR path)
 
         UINT32 bytesRead = file.Read(buffer + totalRead, 4096);
         if (bytesRead == 0)
-            break;  // EOF reached
+            break; // EOF reached
 
         totalRead += bytesRead;
     }
@@ -65,9 +65,9 @@ static inline CHAR* LoadScript(PCWCHAR path)
 /**
  * RunScriptFile - Load and execute a PIL script file
  */
-static inline BOOL RunScriptFile(PIL::State* L, PCWCHAR path)
+static inline BOOL RunScriptFile(PIL::State *L, PCWCHAR path)
 {
-    CHAR* source = LoadScript(path);
+    CHAR *source = LoadScript(path);
     if (source == nullptr)
         return FALSE;
     BOOL result = L->DoString(source);
@@ -78,7 +78,7 @@ static inline BOOL RunScriptFile(PIL::State* L, PCWCHAR path)
 /**
  * RunScriptAndCheckResult - Execute a script and verify the 'result' global variable is TRUE
  */
-static inline BOOL RunScriptAndCheckResult(PIL::State* L, PCWCHAR path)
+static inline BOOL RunScriptAndCheckResult(PIL::State *L, PCWCHAR path)
 {
     if (!RunScriptFile(L, path))
     {
@@ -112,15 +112,15 @@ static inline BOOL RunScriptAndCheckResult(PIL::State* L, PCWCHAR path)
 // CONSOLE OUTPUT CALLBACK
 // ============================================================================
 
-static inline void ScriptConsoleOutput(const CHAR* str, USIZE len)
+static inline void ScriptConsoleOutput(const CHAR *str, USIZE len)
 {
     Console::Write(str, len);
 }
 
-static inline PIL::State* CreateScriptState()
+static inline PIL::State *CreateScriptState()
 {
-    PIL::State* L = new PIL::State();
-    L->SetOutput(NULL);
+    PIL::State *L = new PIL::State();
+    L->SetOutput(EMBED_FUNC(ScriptConsoleOutput));
     return L;
 }
 
@@ -133,13 +133,13 @@ static inline PIL::State* CreateScriptState()
  */
 enum class TestConfig : UINT8
 {
-    NONE           = 0,
-    OPEN_STDLIB    = 1 << 0,  // Call OpenStdLib
-    OPEN_FILEIO    = 1 << 1,  // Call OpenFileIO (requires FilePool)
-    OPEN_NETWORKIO = 1 << 2,  // Call OpenNetworkIO (requires NetworkContext)
-    EXPECT_FAILURE = 1 << 3,  // Expect script to fail (negate result)
-    CHECK_RESULT   = 1 << 4,  // Check 'result' global variable
-    LOG_ERROR_INFO = 1 << 5,  // Log error info on expected failure
+    NONE = 0,
+    OPEN_STDLIB = 1 << 0,    // Call OpenStdLib
+    OPEN_FILEIO = 1 << 1,    // Call OpenFileIO (requires FilePool)
+    OPEN_NETWORKIO = 1 << 2, // Call OpenNetworkIO (requires NetworkContext)
+    EXPECT_FAILURE = 1 << 3, // Expect script to fail (negate result)
+    CHECK_RESULT = 1 << 4,   // Check 'result' global variable
+    LOG_ERROR_INFO = 1 << 5, // Log error info on expected failure
 };
 
 constexpr TestConfig operator|(TestConfig a, TestConfig b)
@@ -154,9 +154,9 @@ constexpr bool operator&(TestConfig a, TestConfig b)
 
 // Common configurations
 static constexpr TestConfig CFG_STDLIB = TestConfig::OPEN_STDLIB | TestConfig::CHECK_RESULT;
-static constexpr TestConfig CFG_STDLIB_EXPECT_FAIL = TestConfig::OPEN_STDLIB | TestConfig::EXPECT_FAILURE | TestConfig::LOG_ERROR_INFO;
-static constexpr TestConfig CFG_FILEIO = TestConfig::OPEN_STDLIB | TestConfig::OPEN_FILEIO;
-static constexpr TestConfig CFG_NETWORKIO = TestConfig::OPEN_STDLIB | TestConfig::OPEN_NETWORKIO;
+static constexpr TestConfig CFG_STDLIB_EXPECT_FAIL = TestConfig::OPEN_STDLIB | TestConfig::EXPECT_FAILURE | TestConfig::LOG_ERROR_INFO | TestConfig::CHECK_RESULT;
+static constexpr TestConfig CFG_FILEIO = TestConfig::OPEN_STDLIB | TestConfig::OPEN_FILEIO | TestConfig::CHECK_RESULT;
+static constexpr TestConfig CFG_NETWORKIO = TestConfig::OPEN_STDLIB | TestConfig::OPEN_NETWORKIO | TestConfig::CHECK_RESULT;
 
 // ============================================================================
 // SCRIPT TEST RUNNER
@@ -166,10 +166,10 @@ static constexpr TestConfig CFG_NETWORKIO = TestConfig::OPEN_STDLIB | TestConfig
  * RunScriptTestInline - Execute a script test with the given configuration
  */
 static inline BOOL RunScriptTestInline(PCWCHAR path, TestConfig config,
-                                        PIL::FilePool* filePool = nullptr,
-                                        PIL::NetworkContext* netCtx = nullptr)
+                                       PIL::FilePool *filePool = nullptr,
+                                       PIL::NetworkContext *netCtx = nullptr)
 {
-    PIL::State* L = CreateScriptState();
+    PIL::State *L = CreateScriptState();
 
     // Open libraries based on configuration
     if (config & TestConfig::OPEN_STDLIB)
@@ -209,7 +209,7 @@ static inline BOOL RunScriptTestInline(PCWCHAR path, TestConfig config,
         {
             LOG_INFO("    Error detected: %s", L->GetError());
         }
-        result = !result;  // Invert result for expected failures
+        result = !result; // Invert result for expected failures
     }
 
     delete L;
@@ -229,9 +229,9 @@ static inline BOOL RunScriptTestInline(PCWCHAR path, TestConfig config,
  * @param config       - Test configuration flags
  * @return TRUE if test passed, FALSE otherwise
  */
-inline BOOL RunScriptTest(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR description, TestConfig config)
+inline BOOL RunScriptTest(BOOL &allPassedVar, PCWCHAR scriptPath, PCWCHAR description, TestConfig config)
 {
-    (VOID)description; // Suppress unused parameter warning if logging is disabled
+    (VOID) description; // Suppress unused parameter warning if logging is disabled
     BOOL passed = RunScriptTestInline(scriptPath, config);
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
@@ -251,11 +251,11 @@ inline BOOL RunScriptTest(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR descri
  * @param description  - Human-readable description of the test (wide embedded string)
  * @return TRUE if test passed, FALSE otherwise
  */
-inline BOOL RunScriptTestFileIO(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR description)
+inline BOOL RunScriptTestFileIO(BOOL &allPassedVar, PCWCHAR scriptPath, PCWCHAR description)
 {
     PIL::FilePool pool;
     BOOL passed = RunScriptTestInline(scriptPath, CFG_FILEIO, &pool, nullptr);
-    (VOID)description; // Suppress unused parameter warning if logging is disabled
+    (VOID) description; // Suppress unused parameter warning if logging is disabled
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
     else
@@ -278,12 +278,12 @@ inline BOOL RunScriptTestFileIO(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR 
  * @param description  - Human-readable description of the test (wide embedded string)
  * @return TRUE if test passed, FALSE otherwise
  */
-inline BOOL RunScriptTestNetworkIO(BOOL& allPassedVar, PCWCHAR scriptPath, PCWCHAR description)
+inline BOOL RunScriptTestNetworkIO(BOOL &allPassedVar, PCWCHAR scriptPath, PCWCHAR description)
 {
-    PIL::NetworkContext* netCtx = new PIL::NetworkContext();
+    PIL::NetworkContext *netCtx = new PIL::NetworkContext();
     BOOL passed = RunScriptTestInline(scriptPath, CFG_NETWORKIO, nullptr, netCtx);
     delete netCtx;
-    (VOID)description; // Suppress unused parameter warning if logging is disabled
+    (VOID) description; // Suppress unused parameter warning if logging is disabled
     if (passed)
         LOG_INFO("  PASSED: %ls", description);
     else

@@ -1,6 +1,8 @@
 // Test sock_redirect with valid socket and process path
 // Should return a valid PID (>= 0) when successful
 
+var result = true;
+
 // Get platform-appropriate process path
 var process_path = "";
 var platform = os();
@@ -16,7 +18,7 @@ if (platform == "win") {
 }
 
 if (len(process_path) > 0) {
-    var sock = sock_connect("httpbin.org", 80);
+    var sock = sock_connect("1.1.1.1", 80);
     if (sock >= 0) {
         var pid = sock_redirect(sock, process_path);
         print("Platform:", platform);
@@ -29,13 +31,15 @@ if (len(process_path) > 0) {
             // sock_redirect may fail if process creation fails
             // This is not necessarily a test failure on all systems
             print("sock_redirect returned error (may be expected on some systems)");
-            print("PASS");
+            print("FAIL");
+            result = false;
         }
 
         sock_close(sock);
     } else {
         // If we can't connect, skip the test
         print("Could not connect to test server");
-        print("PASS");
+        print("FAIL");
+        result = false;
     }
 }
