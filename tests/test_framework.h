@@ -120,7 +120,7 @@ static inline void ScriptConsoleOutput(const CHAR *str, USIZE len)
 static inline PIL::State *CreateScriptState()
 {
     PIL::State *L = new PIL::State();
-    L->SetOutput(ScriptConsoleOutput);
+    L->SetOutput(EMBED_FUNC(ScriptConsoleOutput));
     return L;
 }
 
